@@ -3,15 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Navbar avec Traduction</title>
+  <title>Barkeelu</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
   <style>
     body {
       margin: 0;
       font-family: Arial, sans-serif;
       background-color: #b3082c;
-      position: static !important;
-      top: 0 !important;
     }
 
     .navbar {
@@ -127,13 +125,18 @@
       background-color: rgba(255, 255, 255, 0.1);
     }
 
-    /* Cacher les éléments Google Translate */
-    #google_translate_element,
-    .goog-logo-link,
-    .goog-te-gadget span,
-    .goog-te-banner-frame,
-    .goog-te-gadget-icon {
-      display: none !important;
+    .content {
+      text-align: center;
+      color: white;
+      margin-top: 100px;
+    }
+
+    .content h1 {
+      font-size: 3em;
+    }
+
+    .content p {
+      font-size: 1.5em;
     }
   </style>
 </head>
@@ -141,19 +144,19 @@
   <nav class="navbar">
     <div class="logo">
       <img src="logo.png" alt="Barkeelu" />
-      <div class="logo-text">EXPLORER ET DÉVELOPPER<br />LES TERRES INCONNUES</div>
+      <div class="logo-text" data-i18n="motto">EXPLORER ET DÉVELOPPER<br />LES TERRES INCONNUES</div>
     </div>
     <ul class="nav-links">
-      <li><a href="#">Secteurs</a></li>
-      <li><a href="#">Missions</a></li>
-      <li><a href="#">Expertises</a></li>
-      <li><a href="#">Notre aventure</a></li>
-      <li><a href="#">Journal de Bord</a></li>
+      <li><a href="#" data-i18n="sectors">Secteurs</a></li>
+      <li><a href="#" data-i18n="missions">Missions</a></li>
+      <li><a href="#" data-i18n="expertise">Expertises</a></li>
+      <li><a href="#" data-i18n="adventure">Notre aventure</a></li>
+      <li><a href="#" data-i18n="logbook">Journal de Bord</a></li>
     </ul>
     <div class="search-icon">
       <i class="fas fa-search"></i>
     </div>
-    <button class="contact-btn">
+    <button class="contact-btn" data-i18n="contact">
       Nous contacter <i class="fas fa-arrow-up-right-from-square"></i>
     </button>
     <div class="lang-select">
@@ -167,59 +170,90 @@
     </div>
   </nav>
 
-  <!-- Conteneur pour Google Translate -->
-  <div id="google_translate_element"></div>
+  <div class="content">
+    <h1 data-i18n="headline">Bienvenue chez Barkeelu</h1>
+    <p data-i18n="description">Nous vous aidons à explorer de nouvelles opportunités.</p>
+  </div>
 
-  <!-- Google Translate API -->
-  <script type="text/javascript">
-    function googleTranslateElementInit() {
-      new google.translate.TranslateElement({
-        pageLanguage: 'fr',
-        includedLanguages: 'fr,en,es,wo',
-        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-      }, 'google_translate_element');
-    }
-  </script>
-  <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-
-  <!-- Script du menu de langues + blocage de la barre -->
+  <!-- Traductions en JS -->
   <script>
-    const langBtn = document.getElementById('langToggle');
-    const dropdown = document.getElementById('langDropdown');
-    const langItems = dropdown.querySelectorAll('li');
+    const translations = {
+      fr: {
+        motto: "EXPLORER ET DÉVELOPPER<br />LES TERRES INCONNUES",
+        sectors: "Secteurs",
+        missions: "Missions",
+        expertise: "Expertises",
+        adventure: "Notre aventure",
+        logbook: "Journal de Bord",
+        contact: "Nous contacter",
+        headline: "Bienvenue chez Barkeelu",
+        description: "Nous vous aidons à explorer de nouvelles opportunités."
+      },
+      en: {
+        motto: "EXPLORE AND DEVELOP<br />UNKNOWN LANDS",
+        sectors: "Sectors",
+        missions: "Missions",
+        expertise: "Expertise",
+        adventure: "Our adventure",
+        logbook: "Logbook",
+        contact: "Contact us",
+        headline: "Welcome to Barkeelu",
+        description: "We help you explore new opportunities."
+      },
+      es: {
+        motto: "EXPLORAR Y DESARROLLAR<br />TIERRAS DESCONOCIDAS",
+        sectors: "Sectores",
+        missions: "Misiones",
+        expertise: "Especialidades",
+        adventure: "Nuestra aventura",
+        logbook: "Bitácora",
+        contact: "Contáctanos",
+        headline: "Bienvenido a Barkeelu",
+        description: "Te ayudamos a explorar nuevas oportunidades."
+      },
+      wo: {
+        motto: "XOOLAL AK WÉY<br />SUUF YU XAMUL",
+        sectors: "Sektër",
+        missions: "Misyon",
+        expertise: "Xam-xam",
+        adventure: "Sunuy doxalin",
+        logbook: "Jurnalu doxalin",
+        contact: "Naka ñu gis la",
+        headline: "Jàmm ak jàmm ci Barkeelu",
+        description: "Nuy jox la yëngu-yëngu ci suuf yu bees."
+      }
+    };
 
-    langBtn.addEventListener('click', () => {
-      dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+    function setLanguage(lang) {
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        const content = translations[lang][key];
+        if (content) {
+          el.innerHTML = content;
+        }
+      });
+    }
+
+    const langBtn = document.getElementById("langToggle");
+    const dropdown = document.getElementById("langDropdown");
+
+    langBtn.addEventListener("click", () => {
+      dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
     });
 
-    document.addEventListener('click', (e) => {
-      if (!e.target.closest('.lang-select')) {
-        dropdown.style.display = 'none';
+    document.addEventListener("click", e => {
+      if (!e.target.closest(".lang-select")) {
+        dropdown.style.display = "none";
       }
     });
 
-    langItems.forEach(item => {
-      item.addEventListener('click', () => {
-        const lang = item.getAttribute('data-lang');
+    document.querySelectorAll(".lang-dropdown li").forEach(item => {
+      item.addEventListener("click", () => {
+        const lang = item.getAttribute("data-lang");
+        setLanguage(lang);
         langBtn.textContent = `${lang.toUpperCase()} ▾`;
-        const selector = document.querySelector('.goog-te-combo');
-        if (selector) {
-          selector.value = lang;
-          selector.dispatchEvent(new Event('change'));
-        }
+        dropdown.style.display = "none";
       });
-    });
-
-    // Masquer l'iframe de la barre Google
-    window.addEventListener('load', () => {
-      setTimeout(() => {
-        const iframe = document.querySelector('iframe.goog-te-banner-frame');
-        if (iframe) {
-          iframe.style.display = 'none';
-        }
-        document.body.style.position = 'static';
-        document.body.style.top = '0px';
-      }, 1000);
     });
   </script>
 </body>
