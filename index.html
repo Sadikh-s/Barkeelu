@@ -1,203 +1,283 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Navbar Reproduction</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
-        body {
-            background-color: #b3082c;
-            top: 0px !important; /* Pour éviter les décalages de Google Translate */
-        }
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: white;
-            padding: 15px 30px;
-            box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
-            position: relative;
-        }
-        .logo {
-            display: flex;
-            align-items: center;
-        }
-        .logo img {
-            height: 40px;
-            margin-right: 10px;
-        }
-        .logo-text {
-            font-size: 12px;
-            color: #b3082c;
-            font-weight: bold;
-        }
-        .nav-links {
-            display: flex;
-            align-items: center;
-            list-style: none;
-        }
-        .nav-links li {
-            margin: 0 15px;
-            position: relative;
-        }
-        .nav-links a {
-            text-decoration: none;
-            color: #001f4d;
-            font-weight: 600;
-        }
-        .dropdown:hover .dropdown-menu {
-            display: block;
-        }
-        .dropdown-menu {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background-color: white;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 15px;
-            min-width: 300px;
-            z-index: 10;
-        }
-        .dropdown-menu .menu-header {
-            font-size: 14px;
-            font-weight: bold;
-            color: #fff;
-            background-color: #6d41ad;
-            padding: 10px;
-            border-radius: 5px 5px 0 0;
-        }
-        .dropdown-menu ul {
-            list-style: none;
-            padding: 10px;
-        }
-        .dropdown-menu li {
-            margin: 5px 0;
-        }
-        .search-icon {
-            background: #f8f8f8;
-            border-radius: 50%;
-            padding: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .search-icon i {
-            color: #b3082c;
-        }
-        .contact-btn {
-            background-color: #ff0033;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 30px;
-            font-weight: bold;
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-        }
-        .contact-btn i {
-            margin-left: 5px;
-        }
-        .lang {
-            margin-left: 20px;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Navbar Reproduction</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
 
-        /* Google Translate Custom Style */
-        #google_translate_element {
-            font-size: 0.9rem;
-        }
-        .goog-te-banner-frame.skiptranslate {
-            display: none !important;
-        }
-        .goog-logo-link {
-            display: none !important;
-        }
-        .goog-te-gadget {
-            color: transparent !important;
-        }
-    </style>
+    body {
+      background-color: #b3082c;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: white;
+      padding: 15px 30px;
+      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+      position: relative;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo img {
+      height: 40px;
+      margin-right: 10px;
+    }
+
+    .logo-text {
+      font-size: 12px;
+      color: #b3082c;
+      font-weight: bold;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      list-style: none;
+    }
+
+    .nav-links li {
+      margin: 0 15px;
+      position: relative;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #001f4d;
+      font-weight: 600;
+    }
+
+    .dropdown:hover .dropdown-menu {
+      display: block;
+    }
+
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: white;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 15px;
+      min-width: 300px;
+      z-index: 10;
+    }
+
+    .dropdown-menu .menu-header {
+      font-size: 14px;
+      font-weight: bold;
+      color: #fff;
+      background-color: #6d41ad;
+      padding: 10px;
+      border-radius: 5px 5px 0 0;
+    }
+
+    .dropdown-menu ul {
+      list-style: none;
+      padding: 10px;
+    }
+
+    .dropdown-menu li {
+      margin: 5px 0;
+    }
+
+    .search-icon {
+      background: #f8f8f8;
+      border-radius: 50%;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .search-icon i {
+      color: #b3082c;
+    }
+
+    .contact-btn {
+      background-color: #ff0033;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+    }
+
+    .contact-btn i {
+      margin-left: 5px;
+    }
+
+    /* Langue custom dropdown */
+    .lang-select {
+      position: relative;
+      margin-left: 20px;
+    }
+
+    .lang-btn {
+      background: none;
+      border: none;
+      color: #001f4d;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 0.95rem;
+      padding: 8px 12px;
+      border-radius: 8px;
+      transition: background 0.2s;
+    }
+
+    .lang-btn:hover {
+      background: #f1f1f1;
+    }
+
+    .lang-dropdown {
+      position: absolute;
+      top: 110%;
+      right: 0;
+      background: linear-gradient(to bottom, #555, #222);
+      border-radius: 10px;
+      list-style: none;
+      padding: 5px 0;
+      display: none;
+      z-index: 99;
+      min-width: 60px;
+      box-shadow: 0px 2px 10px rgba(0,0,0,0.2);
+    }
+
+    .lang-dropdown li {
+      padding: 8px 15px;
+      color: white;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .lang-dropdown li:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .lang-dropdown li.selected {
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="logo">
-            <img src="logo.png" alt="Barkeelu">
-            <div class="logo-text">EXPLORER ET DÉVELOPPER<br>LES TERRES INCONNUES</div>
+  <nav class="navbar">
+    <div class="logo">
+      <img src="logo.png" alt="Barkeelu" />
+      <div class="logo-text">
+        EXPLORER ET DÉVELOPPER<br />LES TERRES INCONNUES
+      </div>
+    </div>
+    <ul class="nav-links">
+      <li class="dropdown">
+        <a href="#">Secteurs ▼</a>
+        <div class="dropdown-menu">
+          <div class="menu-header">
+            Les terres d'exploration dans lesquelles nous intervenons
+          </div>
+          <ul>
+            <li><a href="consumer.html">Consumer goods & retail</a></li>
+            <li><a href="finance.html">Financial services & insurance</a></li>
+            <li><a href="health.html">Health & wellness</a></li>
+            <li><a href="techno.html">Technology & telecommunications</a></li>
+            <li><a href="transport.html">Transportation & automotive</a></li>
+            <li><a href="public_sec.html">Public sector & non-profit organizations</a></li>
+            <li><a href="industry.html">Industry</a></li>
+          </ul>
         </div>
-        <ul class="nav-links">
-            <li class="dropdown">
-                <a href="#">Secteurs ▼</a>
-                <div class="dropdown-menu">
-                    <div class="menu-header">Les terres d'exploration dans lesquelles nous intervenons</div>
-                    <ul>
-                        <li><a href='consumer.html'>Consumer goods & retail</a></li>
-                        <li><a href='finance.html'>Financial services & insurance</a></li>
-                        <li><a href='health.html'>Health & wellness</a></li>
-                        <li><a href='techno.html'>Technology & telecommunications</a></li>
-                        <li><a href='transport.html'>Transportation & automotive</a></li>
-                        <li><a href="public_sec.html">Public sector & non-profit organizations</a></li>
-                        <li><a href='industry.html'>Industry</a></li>
-                    </ul>
-                </div>
-            </li>
-            <li class="dropdown">
-                <a href="#">Missions ▼</a>
-                <div class="dropdown-menu">
-                    <div class="menu-header">Les types de missions que nous menons pour nos clients</div>
-                    <ul>
-                        <li>Marketing stratégique</li>
-                        <li>Clients & Patients</li>
-                        <li>R&D</li>
-                        <li>Stratégie commerciale</li>
-                        <li>Innovation</li>
-                        <li>Nouveaux partenaires</li>
-                        <li>Stratégie</li>
-                    </ul>
-                </div>
-            </li>
-            <li class="dropdown">
-                <a href="#">Expertises ▼</a>
-                <div class="dropdown-menu">
-                    <ul>
-                        <li><a href='data_management.html'>Data management</a></li>
-                        <li><a href='data_analysis.html'>Data analysis</a></li>
-                        <li><a href='data_visualization.html'>Data visualization</a></li>
-                        <li><a href='predictive_modeling.html'>Predictive modeling</a></li>
-                        <li><a href='market_study.html'>Market study</a></li>
-                        <li><a href='web_development.html'>Web development</a></li>
-                    </ul>
-                </div>
-            </li>
-            <li><a href="#">Notre aventure</a></li>
-            <li><a href="#">Envie d’embarquer ?</a></li>
-            <li><a href="#">Journal de Bord</a></li>
-        </ul>
-        <div class="search-icon">
-            <i class="fas fa-search"></i>
+      </li>
+      <li class="dropdown">
+        <a href="#">Missions ▼</a>
+        <div class="dropdown-menu">
+          <div class="menu-header">Les types de missions que nous menons pour nos clients</div>
+          <ul>
+            <li>Marketing stratégique</li>
+            <li>Clients & Patients</li>
+            <li>R&D</li>
+            <li>Stratégie commerciale</li>
+            <li>Innovation</li>
+            <li>Nouveaux partenaires</li>
+            <li>Stratégie</li>
+          </ul>
         </div>
-        <button class="contact-btn">
-            Nous contacter <i class="fas fa-arrow-up-right-from-square"></i>
-        </button>
-        <div class="lang" id="google_translate_element"></div>
-    </nav>
+      </li>
+      <li class="dropdown">
+        <a href="#">Expertises ▼</a>
+        <div class="dropdown-menu">
+          <ul>
+            <li><a href="data_management.html">Data management</a></li>
+            <li><a href="data_analysis.html">Data analysis</a></li>
+            <li><a href="data_visualization.html">Data visualization</a></li>
+            <li><a href="predictive_modeling.html">Predictive modeling</a></li>
+            <li><a href="market_study.html">Market study</a></li>
+            <li><a href="web_development.html">Web development</a></li>
+          </ul>
+        </div>
+      </li>
+      <li><a href="#">Notre aventure</a></li>
+      <li><a href="#">Envie d’embarquer ?</a></li>
+      <li><a href="#">Journal de Bord</a></li>
+    </ul>
+    <div class="search-icon">
+      <i class="fas fa-search"></i>
+    </div>
+    <button class="contact-btn">
+      Nous contacter <i class="fas fa-arrow-up-right-from-square"></i>
+    </button>
 
-    <!-- Google Translate script -->
-    <script type="text/javascript">
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({
-                pageLanguage: 'fr',
-                includedLanguages: 'en,es,fr,wo',
-                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-            }, 'google_translate_element');
-        }
-    </script>
-    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <!-- 🔥 Sélecteur de langue custom -->
+    <div class="lang-select">
+      <button class="lang-btn" id="langToggle">FR ▾</button>
+      <ul class="lang-dropdown" id="langDropdown">
+        <li data-lang="fr">FR</li>
+        <li data-lang="en">EN</li>
+        <li data-lang="es">ES</li>
+        <li data-lang="wo">WO</li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- JS pour dropdown + redirection traduction -->
+  <script>
+    const langBtn = document.getElementById('langToggle');
+    const dropdown = document.getElementById('langDropdown');
+    const langItems = dropdown.querySelectorAll('li');
+
+    // Toggle menu
+    langBtn.addEventListener('click', () => {
+      dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+    });
+
+    // Fermer si on clique en dehors
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.lang-select')) {
+        dropdown.style.display = 'none';
+      }
+    });
+
+    // Sélection d'une langue
+    langItems.forEach(item => {
+      item.addEventListener('click', () => {
+        const lang = item.getAttribute('data-lang');
+        langBtn.textContent = `${lang.toUpperCase()} ▾`;
+        window.location.href = `https://translate.google.com/translate?hl=${lang}&sl=fr&tl=${lang}&u=${encodeURIComponent(window.location.href)}`;
+      });
+    });
+  </script>
 </body>
 </html>
