@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Navbar Reproduction</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Barkeelu</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
   <style>
     * {
       margin: 0;
@@ -12,74 +12,91 @@
       box-sizing: border-box;
       font-family: Arial, sans-serif;
     }
+
     body {
       background-color: #b3082c;
     }
-    .navbar {
+
+    nav.navbar {
       display: flex;
       justify-content: space-between;
       align-items: center;
       background-color: white;
-      padding: 15px 30px;
-      box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+      padding: 15px 20px;
       position: relative;
+      flex-wrap: wrap;
     }
+
     .logo {
       display: flex;
       align-items: center;
     }
+
     .logo img {
       height: 40px;
       margin-right: 10px;
     }
+
     .logo-text {
       font-size: 12px;
       color: #b3082c;
       font-weight: bold;
     }
+
+    .menu-toggle {
+      display: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
     .nav-links {
       display: flex;
       align-items: center;
       list-style: none;
+      flex-wrap: wrap;
     }
+
     .nav-links li {
-      margin: 0 15px;
+      margin: 0 10px;
       position: relative;
     }
+
     .nav-links a {
       text-decoration: none;
       color: #001f4d;
       font-weight: 600;
-    }
-    .dropdown:hover .dropdown-menu {
+      padding: 8px;
       display: block;
     }
+
     .dropdown-menu {
       display: none;
       position: absolute;
       top: 100%;
       left: 0;
       background-color: white;
-      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-      padding: 15px;
-      min-width: 300px;
-      z-index: 10;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      z-index: 1000;
+      min-width: 200px;
     }
+
     .dropdown-menu .menu-header {
-      font-size: 14px;
       font-weight: bold;
-      color: #fff;
-      background-color: #6d41ad;
+      font-size: 13px;
       padding: 10px;
-      border-radius: 5px 5px 0 0;
+      background: #6d41ad;
+      color: white;
     }
+
     .dropdown-menu ul {
       list-style: none;
       padding: 10px;
     }
+
     .dropdown-menu li {
       margin: 5px 0;
     }
+
     .search-icon {
       background: #f8f8f8;
       border-radius: 50%;
@@ -88,9 +105,11 @@
       align-items: center;
       justify-content: center;
     }
+
     .search-icon i {
       color: #b3082c;
     }
+
     .contact-btn {
       background-color: #ff0033;
       color: white;
@@ -102,13 +121,16 @@
       display: flex;
       align-items: center;
     }
+
     .contact-btn i {
       margin-left: 5px;
     }
+
     .lang-select {
-      margin-left: 20px;
       position: relative;
+      margin-left: 10px;
     }
+
     .lang-btn {
       background: none;
       border: none;
@@ -117,6 +139,7 @@
       cursor: pointer;
       font-size: 0.95rem;
     }
+
     .lang-dropdown {
       position: absolute;
       top: 100%;
@@ -126,41 +149,77 @@
       list-style: none;
       padding: 5px 0;
       display: none;
-      z-index: 99;
+      z-index: 999;
       min-width: 60px;
     }
+
     .lang-dropdown li {
       padding: 8px 15px;
       color: white;
       cursor: pointer;
+      text-align: left;
     }
+
     .lang-dropdown li:hover {
-      background-color: rgba(255, 255, 255, 0.1);
+      background-color: rgba(255,255,255,0.1);
+    }
+
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+
+      .nav-links {
+        flex-direction: column;
+        width: 100%;
+        display: none;
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .nav-links li {
+        width: 100%;
+        margin: 0;
+      }
+
+      .dropdown-menu {
+        position: static;
+        box-shadow: none;
+      }
     }
   </style>
 </head>
 <body>
+
   <nav class="navbar">
     <div class="logo">
-      <img src="logo.png" alt="Barkeelu">
+      <img src="logo.png" alt="Barkeelu" />
       <div class="logo-text" data-i18n="motto">EXPLORER ET DÉVELOPPER<br>LES TERRES INCONNUES</div>
     </div>
-    <ul class="nav-links">
+
+    <div class="menu-toggle" id="menu-toggle">
+      <i class="fas fa-bars"></i>
+    </div>
+
+    <ul class="nav-links" id="nav-links">
       <li class="dropdown">
         <a href="#" data-i18n="sectors">Secteurs ▼</a>
         <div class="dropdown-menu">
           <div class="menu-header" data-i18n="sectors_desc">Les terres d'exploration dans lesquelles nous intervenons</div>
           <ul>
-            <li><a href='consumer.html'>Consumer goods & retail</a></li>
-            <li><a href='finance.html'>Financial services & insurance</a></li>
-            <li><a href='health.html'>Health & wellness</a></li>
-            <li><a href='techno.html'>Technology & telecommunications</a></li>
-            <li><a href='transport.html'>Transportation & automotive</a></li>
+            <li><a href="consumer.html">Consumer goods & retail</a></li>
+            <li><a href="finance.html">Financial services & insurance</a></li>
+            <li><a href="health.html">Health & wellness</a></li>
+            <li><a href="techno.html">Technology & telecommunications</a></li>
+            <li><a href="transport.html">Transportation & automotive</a></li>
             <li><a href="public_sec.html">Public sector & non-profit organizations</a></li>
-            <li><a href='industry.html'>Industry</a></li>
+            <li><a href="industry.html">Industry</a></li>
           </ul>
         </div>
       </li>
+
       <li class="dropdown">
         <a href="#" data-i18n="missions">Missions ▼</a>
         <div class="dropdown-menu">
@@ -176,17 +235,21 @@
           </ul>
         </div>
       </li>
-      <li class="dropdown"><a href="#" data-i18n="expertise">Expertises ▼</a></li>
+
+      <li><a href="#" data-i18n="expertise">Expertises</a></li>
       <li><a href="#" data-i18n="adventure">Notre aventure</a></li>
       <li><a href="#" data-i18n="join">Envie d’embarquer ?</a></li>
       <li><a href="#" data-i18n="logbook">Journal de Bord</a></li>
     </ul>
+
     <div class="search-icon">
       <i class="fas fa-search"></i>
     </div>
+
     <button class="contact-btn" data-i18n="contact">
       Nous contacter <i class="fas fa-arrow-up-right-from-square"></i>
     </button>
+
     <div class="lang-select">
       <button class="lang-btn" id="langToggle">FR ▾</button>
       <ul class="lang-dropdown" id="langDropdown">
@@ -198,8 +261,8 @@
     </div>
   </nav>
 
-  <!-- Traductions -->
   <script>
+    // Traductions
     const translations = {
       fr: {
         motto: "EXPLORER ET DÉVELOPPER<br>LES TERRES INCONNUES",
@@ -214,7 +277,7 @@
         m5: "Innovation",
         m6: "Nouveaux partenaires",
         m7: "Stratégie",
-        expertise: "Expertises ▼",
+        expertise: "Expertises",
         adventure: "Notre aventure",
         join: "Envie d’embarquer ?",
         logbook: "Journal de Bord",
@@ -233,7 +296,7 @@
         m5: "Innovation",
         m6: "New partners",
         m7: "Strategy",
-        expertise: "Expertise ▼",
+        expertise: "Expertise",
         adventure: "Our adventure",
         join: "Ready to embark?",
         logbook: "Logbook",
@@ -252,7 +315,7 @@
         m5: "Innovación",
         m6: "Nuevos socios",
         m7: "Estrategia",
-        expertise: "Especialidades ▼",
+        expertise: "Especialidades",
         adventure: "Nuestra aventura",
         join: "¿Listo para embarcarte?",
         logbook: "Bitácora",
@@ -271,7 +334,7 @@
         m5: "Yeneen luy jaxasoo",
         m6: "Partner bu bees",
         m7: "Tàggat",
-        expertise: "Xam-xam ▼",
+        expertise: "Xam-xam",
         adventure: "Sunuy doxalin",
         join: "Ndax bëgg nga jóg?",
         logbook: "Jurnal bi",
@@ -288,16 +351,17 @@
       });
     }
 
+    // Langue
     const langBtn = document.getElementById("langToggle");
-    const dropdown = document.getElementById("langDropdown");
+    const langDropdown = document.getElementById("langDropdown");
 
     langBtn.addEventListener("click", () => {
-      dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+      langDropdown.style.display = langDropdown.style.display === "block" ? "none" : "block";
     });
 
     document.addEventListener("click", e => {
       if (!e.target.closest(".lang-select")) {
-        dropdown.style.display = "none";
+        langDropdown.style.display = "none";
       }
     });
 
@@ -306,8 +370,36 @@
         const lang = item.getAttribute("data-lang");
         langBtn.textContent = `${lang.toUpperCase()} ▾`;
         setLanguage(lang);
-        dropdown.style.display = "none";
+        langDropdown.style.display = "none";
       });
+    });
+
+    // Toggle menu responsive
+    const menuToggle = document.getElementById("menu-toggle");
+    const navLinks = document.getElementById("nav-links");
+
+    menuToggle.addEventListener("click", () => {
+      navLinks.classList.toggle("open");
+    });
+
+    // Menus dropdown au clic
+    document.querySelectorAll('.dropdown > a').forEach(link => {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        const menu = this.nextElementSibling;
+        document.querySelectorAll('.dropdown-menu').forEach(m => {
+          if (m !== menu) m.style.display = 'none';
+        });
+        menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+      });
+    });
+
+    document.addEventListener('click', function (e) {
+      if (!e.target.closest('.dropdown')) {
+        document.querySelectorAll('.dropdown-menu').forEach(m => {
+          m.style.display = 'none';
+        });
+      }
     });
   </script>
 </body>
