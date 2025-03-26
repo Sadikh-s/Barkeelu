@@ -3,17 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Navbar Reproduction</title>
+  <title>Navbar avec Traduction</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: Arial, sans-serif;
-    }
-
     body {
+      margin: 0;
+      font-family: Arial, sans-serif;
       background-color: #b3082c;
     }
 
@@ -24,7 +19,6 @@
       background-color: white;
       padding: 15px 30px;
       box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-      position: relative;
     }
 
     .logo {
@@ -60,47 +54,10 @@
       font-weight: 600;
     }
 
-    .dropdown:hover .dropdown-menu {
-      display: block;
-    }
-
-    .dropdown-menu {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      background-color: white;
-      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-      padding: 15px;
-      min-width: 300px;
-      z-index: 10;
-    }
-
-    .dropdown-menu .menu-header {
-      font-size: 14px;
-      font-weight: bold;
-      color: #fff;
-      background-color: #6d41ad;
-      padding: 10px;
-      border-radius: 5px 5px 0 0;
-    }
-
-    .dropdown-menu ul {
-      list-style: none;
-      padding: 10px;
-    }
-
-    .dropdown-menu li {
-      margin: 5px 0;
-    }
-
     .search-icon {
       background: #f8f8f8;
       border-radius: 50%;
       padding: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
     .search-icon i {
@@ -123,7 +80,6 @@
       margin-left: 5px;
     }
 
-    /* Langue custom dropdown */
     .lang-select {
       position: relative;
       margin-left: 20px;
@@ -170,8 +126,17 @@
       background-color: rgba(255, 255, 255, 0.1);
     }
 
-    .lang-dropdown li.selected {
-      font-weight: bold;
+    #google_translate_element {
+      display: none;
+    }
+
+    .goog-te-banner-frame.skiptranslate,
+    .goog-te-gadget-icon {
+      display: none !important;
+    }
+
+    body {
+      top: 0 !important;
     }
   </style>
 </head>
@@ -179,58 +144,13 @@
   <nav class="navbar">
     <div class="logo">
       <img src="logo.png" alt="Barkeelu" />
-      <div class="logo-text">
-        EXPLORER ET DÉVELOPPER<br />LES TERRES INCONNUES
-      </div>
+      <div class="logo-text">EXPLORER ET DÉVELOPPER<br>LES TERRES INCONNUES</div>
     </div>
     <ul class="nav-links">
-      <li class="dropdown">
-        <a href="#">Secteurs ▼</a>
-        <div class="dropdown-menu">
-          <div class="menu-header">
-            Les terres d'exploration dans lesquelles nous intervenons
-          </div>
-          <ul>
-            <li><a href="consumer.html">Consumer goods & retail</a></li>
-            <li><a href="finance.html">Financial services & insurance</a></li>
-            <li><a href="health.html">Health & wellness</a></li>
-            <li><a href="techno.html">Technology & telecommunications</a></li>
-            <li><a href="transport.html">Transportation & automotive</a></li>
-            <li><a href="public_sec.html">Public sector & non-profit organizations</a></li>
-            <li><a href="industry.html">Industry</a></li>
-          </ul>
-        </div>
-      </li>
-      <li class="dropdown">
-        <a href="#">Missions ▼</a>
-        <div class="dropdown-menu">
-          <div class="menu-header">Les types de missions que nous menons pour nos clients</div>
-          <ul>
-            <li>Marketing stratégique</li>
-            <li>Clients & Patients</li>
-            <li>R&D</li>
-            <li>Stratégie commerciale</li>
-            <li>Innovation</li>
-            <li>Nouveaux partenaires</li>
-            <li>Stratégie</li>
-          </ul>
-        </div>
-      </li>
-      <li class="dropdown">
-        <a href="#">Expertises ▼</a>
-        <div class="dropdown-menu">
-          <ul>
-            <li><a href="data_management.html">Data management</a></li>
-            <li><a href="data_analysis.html">Data analysis</a></li>
-            <li><a href="data_visualization.html">Data visualization</a></li>
-            <li><a href="predictive_modeling.html">Predictive modeling</a></li>
-            <li><a href="market_study.html">Market study</a></li>
-            <li><a href="web_development.html">Web development</a></li>
-          </ul>
-        </div>
-      </li>
+      <li><a href="#">Secteurs</a></li>
+      <li><a href="#">Missions</a></li>
+      <li><a href="#">Expertises</a></li>
       <li><a href="#">Notre aventure</a></li>
-      <li><a href="#">Envie d’embarquer ?</a></li>
       <li><a href="#">Journal de Bord</a></li>
     </ul>
     <div class="search-icon">
@@ -239,8 +159,7 @@
     <button class="contact-btn">
       Nous contacter <i class="fas fa-arrow-up-right-from-square"></i>
     </button>
-
-    <!-- 🔥 Sélecteur de langue custom -->
+    <!-- Sélecteur de langue -->
     <div class="lang-select">
       <button class="lang-btn" id="langToggle">FR ▾</button>
       <ul class="lang-dropdown" id="langDropdown">
@@ -252,30 +171,46 @@
     </div>
   </nav>
 
-  <!-- JS pour dropdown + redirection traduction -->
+  <!-- Conteneur invisible pour Google Translate -->
+  <div id="google_translate_element"></div>
+
+  <!-- Scripts -->
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({
+        pageLanguage: 'fr',
+        includedLanguages: 'fr,en,es,wo',
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+      }, 'google_translate_element');
+    }
+  </script>
+  <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
   <script>
     const langBtn = document.getElementById('langToggle');
     const dropdown = document.getElementById('langDropdown');
     const langItems = dropdown.querySelectorAll('li');
 
-    // Toggle menu
     langBtn.addEventListener('click', () => {
       dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
     });
 
-    // Fermer si on clique en dehors
     document.addEventListener('click', (e) => {
       if (!e.target.closest('.lang-select')) {
         dropdown.style.display = 'none';
       }
     });
 
-    // Sélection d'une langue
     langItems.forEach(item => {
       item.addEventListener('click', () => {
         const lang = item.getAttribute('data-lang');
         langBtn.textContent = `${lang.toUpperCase()} ▾`;
-        window.location.href = `https://translate.google.com/translate?hl=${lang}&sl=fr&tl=${lang}&u=${encodeURIComponent(window.location.href)}`;
+        const frame = document.querySelector('iframe.goog-te-banner-frame');
+        const selector = document.querySelector('.goog-te-combo');
+        if (selector) {
+          selector.value = lang;
+          selector.dispatchEvent(new Event('change'));
+        }
       });
     });
   </script>
