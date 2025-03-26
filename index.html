@@ -14,6 +14,7 @@
         }
         body {
             background-color: #b3082c;
+            top: 0px !important; /* Pour éviter les décalages de Google Translate */
         }
         .navbar {
             display: flex;
@@ -108,12 +109,26 @@
         .lang {
             margin-left: 20px;
         }
+
+        /* Google Translate Custom Style */
+        #google_translate_element {
+            font-size: 0.9rem;
+        }
+        .goog-te-banner-frame.skiptranslate {
+            display: none !important;
+        }
+        .goog-logo-link {
+            display: none !important;
+        }
+        .goog-te-gadget {
+            color: transparent !important;
+        }
     </style>
 </head>
 <body>
     <nav class="navbar">
         <div class="logo">
-            <img src="logo.png" alt="Alcimed">
+            <img src="logo.png" alt="Barkeelu">
             <div class="logo-text">EXPLORER ET DÉVELOPPER<br>LES TERRES INCONNUES</div>
         </div>
         <ul class="nav-links">
@@ -122,16 +137,13 @@
                 <div class="dropdown-menu">
                     <div class="menu-header">Les terres d'exploration dans lesquelles nous intervenons</div>
                     <ul>
-                        <li><a href='sante.html'>Santés</a></li>
-                        <li><a href='biotech.html'>Biotech</a></li>
-                        <li><a href='aeronautique.html'>Aéronautique Spatial Défense</a></li>
-                        <li><a href='energie.html'>Énergie & Environnement</a></li>
-                        <li><a href='agroalimentaire.html'>Agroalimentaire</a></li>
-                        <li><a href='chimie.html'>Chimie & Matériaux</a></li>
-                        <li><a href='cosmetique.html'>Cosmétique & Luxe</a></li>
-                        <li><a href='politiques.html'>Politiques Publiques</a></li>
-                        <li><a href='mobilite.html'>Mobilité</a></li>
-                        <li><a href='private-equity.html'>Private Equity</a></li>
+                        <li><a href='consumer.html'>Consumer goods & retail</a></li>
+                        <li><a href='finance.html'>Financial services & insurance</a></li>
+                        <li><a href='health.html'>Health & wellness</a></li>
+                        <li><a href='techno.html'>Technology & telecommunications</a></li>
+                        <li><a href='transport.html'>Transportation & automotive</a></li>
+                        <li><a href="public_sec.html">Public sector & non-profit organizations</a></li>
+                        <li><a href='industry.html'>Industry</a></li>
                     </ul>
                 </div>
             </li>
@@ -161,7 +173,19 @@
         <button class="contact-btn">
             Nous contacter <i class="fas fa-arrow-up-right-from-square"></i>
         </button>
-        <div class="lang">FR ▼</div>
+        <div class="lang" id="google_translate_element"></div>
     </nav>
+
+    <!-- Google Translate script -->
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'fr',
+                includedLanguages: 'en,es,fr,wo',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>
