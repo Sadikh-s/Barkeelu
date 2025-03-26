@@ -10,6 +10,8 @@
       margin: 0;
       font-family: Arial, sans-serif;
       background-color: #b3082c;
+      position: static !important;
+      top: 0 !important;
     }
 
     .navbar {
@@ -45,7 +47,6 @@
 
     .nav-links li {
       margin: 0 15px;
-      position: relative;
     }
 
     .nav-links a {
@@ -126,17 +127,13 @@
       background-color: rgba(255, 255, 255, 0.1);
     }
 
-    #google_translate_element {
-      display: none;
-    }
-
-    .goog-te-banner-frame.skiptranslate,
+    /* Cacher les éléments Google Translate */
+    #google_translate_element,
+    .goog-logo-link,
+    .goog-te-gadget span,
+    .goog-te-banner-frame,
     .goog-te-gadget-icon {
       display: none !important;
-    }
-
-    body {
-      top: 0 !important;
     }
   </style>
 </head>
@@ -144,7 +141,7 @@
   <nav class="navbar">
     <div class="logo">
       <img src="logo.png" alt="Barkeelu" />
-      <div class="logo-text">EXPLORER ET DÉVELOPPER<br>LES TERRES INCONNUES</div>
+      <div class="logo-text">EXPLORER ET DÉVELOPPER<br />LES TERRES INCONNUES</div>
     </div>
     <ul class="nav-links">
       <li><a href="#">Secteurs</a></li>
@@ -159,7 +156,6 @@
     <button class="contact-btn">
       Nous contacter <i class="fas fa-arrow-up-right-from-square"></i>
     </button>
-    <!-- Sélecteur de langue -->
     <div class="lang-select">
       <button class="lang-btn" id="langToggle">FR ▾</button>
       <ul class="lang-dropdown" id="langDropdown">
@@ -171,10 +167,10 @@
     </div>
   </nav>
 
-  <!-- Conteneur invisible pour Google Translate -->
+  <!-- Conteneur pour Google Translate -->
   <div id="google_translate_element"></div>
 
-  <!-- Scripts -->
+  <!-- Google Translate API -->
   <script type="text/javascript">
     function googleTranslateElementInit() {
       new google.translate.TranslateElement({
@@ -186,6 +182,7 @@
   </script>
   <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
+  <!-- Script du menu de langues + blocage de la barre -->
   <script>
     const langBtn = document.getElementById('langToggle');
     const dropdown = document.getElementById('langDropdown');
@@ -205,13 +202,24 @@
       item.addEventListener('click', () => {
         const lang = item.getAttribute('data-lang');
         langBtn.textContent = `${lang.toUpperCase()} ▾`;
-        const frame = document.querySelector('iframe.goog-te-banner-frame');
         const selector = document.querySelector('.goog-te-combo');
         if (selector) {
           selector.value = lang;
           selector.dispatchEvent(new Event('change'));
         }
       });
+    });
+
+    // Masquer l'iframe de la barre Google
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        const iframe = document.querySelector('iframe.goog-te-banner-frame');
+        if (iframe) {
+          iframe.style.display = 'none';
+        }
+        document.body.style.position = 'static';
+        document.body.style.top = '0px';
+      }, 1000);
     });
   </script>
 </body>
