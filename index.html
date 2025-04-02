@@ -337,21 +337,42 @@
     });
 
     document.addEventListener("DOMContentLoaded", () => {
-      const path = window.location.hash.slice(1); // ex: /strategic-marketing.html
+      const path = window.location.hash.slice(2); // Enlève le #/ → ex: strategic-marketing.html
+    
       if (path) {
         console.log("Page demandée depuis 404 :", path);
     
-        // Exemple simple : rediriger ou afficher dynamiquement
-        // Ici, tu peux faire du fetch, activer une section, etc.
-        if (path === "/strategic-marketing.html") {
-          window.location.href = "strategic-marketing.html"; // ou charger un composant
+        // Liste des pages autorisées
+        const allowedPages = [
+          "strategic-marketing.html",
+          "clients-patients.html",
+          "research-development.html",
+          "innovation.html"
+        ];
+    
+        if (allowedPages.includes(path)) {
+          // Charger dynamiquement le contenu de la page
+          fetch(path)
+            .then(res => {
+              if (!res.ok) throw new Error("Fichier non trouvé");
+              return res.text();
+            })
+            .then(html => {
+              document.body.innerHTML = html;
+            })
+            .catch(() => {
+              showNotFound();
+            });
         } else {
-          // Si le chemin n'est pas reconnu
-          document.body.innerHTML = `
-            <h1>Oups, cette page n'existe pas 🛸</h1>
-            <p><a href="index.html">Retour à l'accueil</a></p>
-          `;
+          showNotFound();
         }
+      }
+    
+      function showNotFound() {
+        document.body.innerHTML = `
+          <h1>Oups, cette page n'existe pas 🛸</h1>
+          <p><a href="index.html">Retour à l'accueil</a></p>
+        `;
       }
     });
     
