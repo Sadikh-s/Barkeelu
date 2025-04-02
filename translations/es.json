@@ -1,0 +1,19 @@
+{
+    motto: "EXPLORAR Y DESARROLLAR<br>TIERRAS DESCONOCIDAS",
+    sectors: "Sectores ▼",
+    sectors_desc: "Áreas de exploración donde intervenimos",
+    missions: "Misiones ▼",
+    missions_desc: "Tipos de misiones que realizamos para nuestros clientes",
+    m1: "Marketing estratégico",
+    m2: "Clientes y pacientes",
+    m3: "I+D",
+    m4: "Estrategia comercial",
+    m5: "Innovación",
+    m6: "Nuevos socios",
+    m7: "Estrategia",
+    expertise: "Especialidades",
+    adventure: "Nuestra aventura",
+    join: "¿Listo para embarcarte?",
+    logbook: "Bitácora",
+    contact: "Contáctanos"
+  }
