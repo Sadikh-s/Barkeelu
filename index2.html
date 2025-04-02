@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Barkeelu</title>
+  <meta name="description" content="Barkeelu - Explorer et développer les terres inconnues. Conseil stratégique et innovation.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background-color: #b3082c;
+    }
+
+    nav.navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: white;
+      padding: 15px 20px;
+      position: relative;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo img {
+      height: 40px;
+      margin-right: 10px;
+    }
+
+    .logo-text {
+      font-size: 12px;
+      color: #b3082c;
+      font-weight: bold;
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      list-style: none;
+      flex-wrap: wrap;
+    }
+
+    .nav-links li {
+      margin: 0 10px;
+      position: relative;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #001f4d;
+      font-weight: 600;
+      padding: 8px;
+      display: block;
+    }
+
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: white;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      z-index: 1000;
+      min-width: 200px;
+    }
+
+    .dropdown-menu .menu-header {
+      font-weight: bold;
+      font-size: 13px;
+      padding: 10px;
+      background: #6d41ad;
+      color: white;
+    }
+
+    .dropdown-menu ul {
+      list-style: none;
+      padding: 10px;
+    }
+
+    .dropdown-menu li {
+      margin: 5px 0;
+    }
+
+    .search-icon {
+      background: #f8f8f8;
+      border-radius: 50%;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .search-icon i {
+      color: #b3082c;
+    }
+
+    .contact-btn {
+      background-color: #ff0033;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+    }
+
+    .contact-btn i {
+      margin-left: 5px;
+    }
+
+    .lang-select {
+      position: relative;
+      margin-left: 10px;
+    }
+
+    .lang-btn {
+      background: none;
+      border: none;
+      color: #001f4d;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+
+    .lang-dropdown {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: linear-gradient(to bottom, #555, #222);
+      border-radius: 10px;
+      list-style: none;
+      padding: 5px 0;
+      display: none;
+      z-index: 999;
+      min-width: 60px;
+    }
+
+    .lang-dropdown li {
+      padding: 8px 15px;
+      color: white;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .lang-dropdown li:hover {
+      background-color: rgba(255,255,255,0.1);
+    }
+
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+
+      .nav-links {
+        flex-direction: column;
+        width: 100%;
+        display: none;
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .nav-links li {
+        width: 100%;
+        margin: 0;
+      }
+
+      .dropdown-menu {
+        position: static;
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Ton HTML ici (en-tête, menu, etc.) -->
+    <nav class="navbar">
+      <div class="logo">
+        <img src="logo.png" alt="Barkeelu" />
+        <div class="logo-text" data-i18n="motto">EXPLORER ET DÉVELOPPER<br>LES TERRES INCONNUES</div>
+      </div>
+
+      <div class="menu-toggle" id="menu-toggle">
+        <i class="fas fa-bars"></i>
+      </div>
+
+      <ul class="nav-links" id="nav-links">
+        <li class="dropdown">
+          <a href="#" data-i18n="sectors">Secteurs ▼</a>
+          <div class="dropdown-menu">
+            <div class="menu-header" data-i18n="sectors_desc">Les terres d'exploration dans lesquelles nous intervenons</div>
+            <ul>
+              <li><a href="consumer.html">Consumer goods & retail</a></li>
+              <li><a href="finance.html">Financial services & insurance</a></li>
+              <li><a href="health.html">Health & wellness</a></li>
+              <li><a href="techno.html">Technology & telecommunications</a></li>
+              <li><a href="transport.html">Transportation & automotive</a></li>
+              <li><a href="public_sec.html">Public sector & non-profit organizations</a></li>
+              <li><a href="industry.html">Industry</a></li>
+            </ul>
+          </div>
+        </li>
+
+        <li class="dropdown">
+          <a href="#" data-i18n="missions">Missions ▼</a>
+          <div class="dropdown-menu">
+            <div class="menu-header" data-i18n="missions_desc">Les types de missions que nous menons pour nos clients</div>
+            <ul>
+              <li data-i18n="m1">Marketing stratégique</li>
+              <li data-i18n="m2">Clients & Patients</li>
+              <li data-i18n="m3">R&D</li>
+              <li data-i18n="m4">Stratégie commerciale</li>
+              <li data-i18n="m5">Innovation</li>
+              <li data-i18n="m6">Nouveaux partenaires</li>
+              <li data-i18n="m7">Stratégie</li>
+            </ul>
+          </div>
+        </li>
+
+        <li><a href="#" data-i18n="expertise">Expertises</a></li>
+        <li><a href="#" data-i18n="adventure">Notre aventure</a></li>
+        <li><a href="#" data-i18n="join">Envie d’embarquer ?</a></li>
+        <li><a href="#" data-i18n="logbook">Journal de Bord</a></li>
+      </ul>
+
+      <div class="search-icon">
+        <i class="fas fa-search"></i>
+      </div>
+
+      <button class="contact-btn" data-i18n="contact">
+        Nous contacter <i class="fas fa-arrow-up-right-from-square"></i>
+      </button>
+
+      <div class="lang-select">
+        <button class="lang-btn" id="langToggle">FR ▾</button>
+        <ul class="lang-dropdown" id="langDropdown">
+          <li data-lang="fr">FR</li>
+          <li data-lang="en">EN</li>
+          <li data-lang="es">ES</li>
+          <li data-lang="wo">WO</li>
+        </ul>
+      </div>
+    </nav>
+
+  <!-- Début du script corrigé -->
+    <script>
+      const translations = {
+        fr: {
+          motto: "EXPLORER ET DÉVELOPPER<br>LES TERRES INCONNUES",
+          sectors: "Secteurs ▼",
+          sectors_desc: "Les terres d'exploration dans lesquelles nous intervenons",
+          missions: "Missions ▼",
+          missions_desc: "Les types de missions que nous menons pour nos clients",
+          m1: "Marketing stratégique",
+          m2: "Clients & Patients",
+          m3: "R&D",
+          m4: "Stratégie commerciale",
+          m5: "Innovation",
+          m6: "Nouveaux partenaires",
+          m7: "Stratégie",
+          expertise: "Expertises",
+          adventure: "Notre aventure",
+          join: "Envie d’embarquer ?",
+          logbook: "Journal de Bord",
+          contact: "Nous contacter"
+        },
+        en: {
+          motto: "EXPLORE AND DEVELOP<br>UNKNOWN LANDS",
+          sectors: "Sectors ▼",
+          sectors_desc: "Exploration areas where we intervene",
+          missions: "Missions ▼",
+          missions_desc: "Types of missions we conduct for our clients",
+          m1: "Strategic marketing",
+          m2: "Clients & Patients",
+          m3: "R&D",
+          m4: "Sales strategy",
+          m5: "Innovation",
+          m6: "New partners",
+          m7: "Strategy",
+          expertise: "Expertise",
+          adventure: "Our adventure",
+          join: "Ready to embark?",
+          logbook: "Logbook",
+          contact: "Contact us"
+        },
+        es: {
+          motto: "EXPLORAR Y DESARROLLAR<br>TIERRAS DESCONOCIDAS",
+          sectors: "Sectores ▼",
+          sectors_desc: "Áreas de exploración donde intervenimos",
+          missions: "Misiones ▼",
+          missions_desc: "Tipos de misiones que realizamos para nuestros clientes",
+          m1: "Marketing estratégico",
+          m2: "Clientes y pacientes",
+          m3: "I+D",
+          m4: "Estrategia comercial",
+          m5: "Innovación",
+          m6: "Nuevos socios",
+          m7: "Estrategia",
+          expertise: "Especialidades",
+          adventure: "Nuestra aventura",
+          join: "¿Listo para embarcarte?",
+          logbook: "Bitácora",
+          contact: "Contáctanos"
+        },
+        wo: {
+          motto: "XOOLAL AK WÉY<br>SUUF YU XAMUL",
+          sectors: "Sektër ▼",
+          sectors_desc: "Suuf yu nuy liggéey ci kawam",
+          missions: "Misyon ▼",
+          missions_desc: "Ay yëngu-yëngu buñu jëfandikoo",
+          m1: "Jëfandikukat",
+          m2: "Jëfandikoo ak fajkat",
+          m3: "R&D",
+          m4: "Tàggat ci jaay",
+          m5: "Yeneen luy jaxasoo",
+          m6: "Partner bu bees",
+          m7: "Tàggat",
+          expertise: "Xam-xam",
+          adventure: "Sunuy doxalin",
+          join: "Ndax bëgg nga jóg?",
+          logbook: "Jurnal bi",
+          contact: "Naka ñu gis la"
+        }
+      };
+
+      function setLanguage(lang) {
+        localStorage.setItem("selectedLang", lang);
+        document.querySelectorAll("[data-i18n]").forEach(el => {
+          const key = el.getAttribute("data-i18n");
+          if (translations[lang] && translations[lang][key]) {
+            el.innerHTML = translations[lang][key];
+          }
+        });
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const savedLang = localStorage.getItem("selectedLang") || "fr";
+        setLanguage(savedLang);
+        const langBtn = document.getElementById("langToggle");
+        if (langBtn) langBtn.textContent = `${savedLang.toUpperCase()} ▾`;
+      });
+
+      const langBtn = document.getElementById("langToggle");
+      const langDropdown = document.getElementById("langDropdown");
+
+      langBtn.addEventListener("click", () => {
+        langDropdown.style.display = langDropdown.style.display === "block" ? "none" : "block";
+      });
+
+      document.addEventListener("click", e => {
+        if (!e.target.closest(".lang-select")) {
+          langDropdown.style.display = "none";
+        }
+      });
+
+      document.querySelectorAll(".lang-dropdown li").forEach(item => {
+        item.addEventListener("click", () => {
+          const lang = item.getAttribute("data-lang");
+          setLanguage(lang);
+          langBtn.textContent = `${lang.toUpperCase()} ▾`;
+          langDropdown.style.display = "none";
+        });
+      });
+
+      const menuToggle = document.getElementById("menu-toggle");
+      const navLinks = document.getElementById("nav-links");
+
+      menuToggle.addEventListener("click", () => {
+        navLinks.classList.toggle("open");
+      });
+
+      document.querySelectorAll('.dropdown > a').forEach(link => {
+        link.addEventListener('click', function (e) {
+          e.preventDefault();
+          const menu = this.nextElementSibling;
+          const allMenus = document.querySelectorAll('.dropdown-menu');
+          allMenus.forEach(m => {
+            if (m !== menu) m.style.display = 'none';
+          });
+          menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+        });
+      });
+
+      document.addEventListener('click', function (e) {
+        if (!e.target.closest('.dropdown')) {
+          document.querySelectorAll('.dropdown-menu').forEach(m => m.style.display = 'none');
+        }
+      });
+    </script>
+  </body>
+  </html>
