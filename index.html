@@ -255,8 +255,8 @@
       <div class="lang-select">
         <button class="lang-btn" id="langToggle">EN ▾</button>
         <ul class="lang-dropdown" id="langDropdown">
-          <li data-lang="fr">FR</li>
           <li data-lang="en">EN</li>
+          <li data-lang="fr">FR</li>
           <li data-lang="es">ES</li>
           <li data-lang="wo">WO</li>
         </ul>
@@ -267,7 +267,7 @@
   <script>
     function setLanguage(lang) {
       localStorage.setItem("selectedLang", lang);
-      if (lang === "en") return; // Pas besoin de charger de fichier
+      //if (lang === "en") return; // Pas besoin de charger de fichier 
   
       fetch(`translations/${lang}.json`)
         .then(res => res.json())
