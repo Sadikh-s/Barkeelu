@@ -1,0 +1,5 @@
+16 Avril : modification onglet expertise, 
+mission sera une seule page
+
+Etapes suivantes: terminer l'entete de la page index.html et faire la traduction
+mettre les packages de l'offre dans chaque domaine d'expertise concerné
