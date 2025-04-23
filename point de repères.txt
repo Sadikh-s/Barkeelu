@@ -1,5 +1,11 @@
-16 Avril : modification onglet expertise, 
-mission sera une seule page
+16 Avril : 
+    modification onglet expertise
+    mission sera une seule page
 
-Etapes suivantes: terminer l'entete de la page index.html et faire la traduction
-mettre les packages de l'offre dans chaque domaine d'expertise concerné
+23 Avril : 
+    continuer l'entete de la page index.html et faire la traduction
+
+Etapes Suivantes :
+    mettre les packages de l'offre dans chaque domaine d'expertise concerné
+    modifier services pour en faire un menu déroulant avec les packages
+    modifier "about_us" en "company" comme le modèle d'artefact
