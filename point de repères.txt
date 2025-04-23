@@ -6,6 +6,10 @@
     continuer l'entete de la page index.html et faire la traduction
 
 Etapes Suivantes :
-    mettre les packages de l'offre dans chaque secteur
-    modifier services pour en faire un menu déroulant avec les packages
-    modifier "about_us" en "company" comme le modèle d'artefact
+    Décrire chaque secteur et définir comment les accompagner
+    modifier services pour en faire un menu déroulant avec les packages et offres séparées
+    modifier "about_us" en "company" comme le modèle d'artefact et y ajouté 
+        Ajouter une page Blog
+        Missions
+        Valeurs (Values)
+        Responsabilité sociale des entreprises
