@@ -8,8 +8,13 @@
 Etapes Suivantes :
     Décrire chaque secteur et définir comment les accompagner
     modifier services pour en faire un menu déroulant avec les packages et offres séparées
+            Dans chaque package nous allons ajouté le un paragraphe sur le lien entre les offres qui le constitue
     modifier "abous_us" en "company" comme le modèle d'artefact et y ajouté 
         Ajouter une page Blog
         Missions
         Valeurs (Values)
         Responsabilité sociale des entreprises
+
+Discuter avec Pape:
+    Différencier les contenus de Services et d'expertise en s'inspirerant d'Alcimed et d'Artefact.
+    
