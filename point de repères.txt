@@ -5,15 +5,18 @@
 23 Avril : 
     continuer l'entete de la page index.html et faire la traduction
 
-Etapes Suivantes :
-    Décrire chaque secteur et définir comment les accompagner
-    modifier services pour en faire un menu déroulant avec les packages et offres séparées
-            Dans chaque package nous allons ajouté le un paragraphe sur le lien entre les offres qui le constitue
+30 Avril & 7 Mai :
     modifier "abous_us" en "company" comme le modèle d'artefact et y ajouté 
         Ajouter une page Blog
         Missions
         Valeurs (Values)
         Responsabilité sociale des entreprises
 
-Discuter avec Pape:
-    Différencier les contenus de Services et d'expertise en s'inspirerant d'Alcimed et d'Artefact.
+    Discuter avec Pape:
+        Différencier les contenus de Services et d'expertise en s'inspirerant d'Alcimed et d'Artefact.
+
+Etapes Suivantes :
+    s'inspirer du site d'Alcimed pour structurer expertise. Améliorer le site en s'inspirant d'Artefact aussi.
+    Décrire chaque secteur et définir comment les accompagner
+    modifier services pour en faire un menu déroulant avec les packages et offres séparées
+            Dans chaque package nous allons ajouté le un paragraphe sur le lien entre les offres qui le constitue
