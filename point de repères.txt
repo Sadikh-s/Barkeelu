@@ -19,4 +19,4 @@ Etapes Suivantes :
     s'inspirer du site d'Alcimed pour structurer expertise. Améliorer le site en s'inspirant d'Artefact aussi.
     Décrire chaque secteur et définir comment les accompagner
     modifier services pour en faire un menu déroulant avec les packages et offres séparées
-            Dans chaque package nous allons ajouté le un paragraphe sur le lien entre les offres qui le constitue
+        Dans chaque package nous allons ajouté le un paragraphe sur le lien entre les offres qui le constituent.
