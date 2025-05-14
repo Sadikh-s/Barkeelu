@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Barkeelu</title>
-  <meta name="description" content="Barkeelu - Explorer et développer les terres inconnues. Conseil stratégique et innovation.">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
   <style>
     * {
@@ -24,8 +23,8 @@
       align-items: center;
       background-color: white;
       padding: 15px 20px;
-      position: relative;
       flex-wrap: wrap;
+      position: relative;
     }
 
     .logo {
@@ -70,15 +69,43 @@
       display: block;
     }
 
-    .dropdown-menu {
+    .dropdown-menu:not(.services, .company) {
       display: none;
       position: absolute;
       top: 100%;
       left: 0;
       background-color: white;
       box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      min-width: 300px;
       z-index: 1000;
-      min-width: 200px;
+      border-radius: 8px;
+      padding: 10px 0;
+    }
+
+    .dropdown-menu.services {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: white;
+      color: black;
+      min-width: 1000px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
+      z-index: 1000;
+    }
+
+    .dropdown-menu.company {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: white;
+      color: black;
+      min-width: 375px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
+      z-index: 1000;
     }
 
     .dropdown-menu .menu-header {
@@ -89,13 +116,38 @@
       color: white;
     }
 
-    .dropdown-menu ul {
-      list-style: none;
+    /* Menu Services → 2 colonnes */
+    .dropdown-menu.services ul {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px 20px;
       padding: 10px;
+      margin: 0;
+      list-style: none;
     }
 
-    .dropdown-menu li {
+    /* Autres menus → 1 colonne */
+    .dropdown-menu:not(.services) ul {
+      display: block;
+      padding: 10px;
+      margin: 0;
+      list-style: none;
+    }
+
+    .dropdown-menu ul li {
       margin: 5px 0;
+    }
+
+    .dropdown-menu ul li a {
+      color: #333;
+      text-decoration: none;
+      padding: 6px 10px;
+      display: block;
+      border-radius: 4px;
+    }
+
+    .dropdown-menu ul li a:hover {
+      background-color: #f0f0f0;
     }
 
     .search-icon {
@@ -184,224 +236,226 @@
         width: 100%;
         margin: 0;
       }
-
-      .dropdown-menu {
-        position: static;
-        box-shadow: none;
-      }
     }
   </style>
 </head>
 <body>
-  <!-- Your HTML here (header, menu, etc.) -->
-  <nav class="navbar">
-    <div class="logo">
-      <img src="logo.png" alt="Barkeelu" />
-      <div class="logo-text" data-i18n="motto">EXPLORE AND DEVELOP<br>UNKNOWN LANDS</div>
-    </div>
-
-    <div class="menu-toggle" id="menu-toggle">
-      <i class="fas fa-bars"></i>
-    </div>
-
-    <ul class="nav-links" id="nav-links">
-      <li class="dropdown">
-        <a href="#" data-i18n="sectors">Sectors ▼</a>
-        <div class="dropdown-menu">
-          <div class="menu-header" data-i18n="sectors_desc">Discover the industries we serve</div>
-          <ul>
-            <li><a href="_sectors_consumer.html" data-i18n="s1">Consumer goods & retail</a></li>
-            <li><a href="_sectors_finance.html" data-i18n="s2">Financial services & insurance</a></li>
-            <li><a href="_sectors_health.html" data-i18n="s3">Health & wellness</a></li>
-            <li><a href="_sectors_techno.html" data-i18n="s4">Technology & telecommunications</a></li>
-            <li><a href="_sectors_transport.html" data-i18n="s5">Transportation & automotive</a></li>
-            <li><a href="_sectors_public_sec.html" data-i18n="s6">Public sector & non-profit organizations</a></li>
-            <li><a href="_sectors_industry.html" data-i18n="s7">Industry</a></li>
-          </ul>
-        </div>
-      </li>
-
-      <li class="dropdown">
-        <a href="#" data-i18n="expertise">Expertise ▼</a>
-        <div class="dropdown-menu">
-          <div class="menu-header" data-i18n="expertise_desc">Our areas of technical and strategic expertise</div>
-          <ul>
-            <li><a href="_expertise_data_analysis.html" data-i18n="e1">Data analysis</a></li>
-            <li><a href="_expertise_data_engineering.html" data-i18n="e2">Data engineering</a></li>
-            <li><a href="_expertise_data_security_and_compliance.html" data-i18n="e3">Data security & compliance</a></li> 
-            <li><a href="_expertise_data_visualization.html" data-i18n="e4">Data visualization</a></li>
-            <li><a href="_expertise_market_research.html" data-i18n="e5">Market research</a></li>
-            <li><a href="_expertise_predictive_modeling_and_ai.html" data-i18n="e6">Predictive modeling & AI</a></li>
-            <li><a href="_expertise_web_development.html" data-i18n="e7">Web development</a></li>     
-          </ul>
-        </div>
-      </li>
-      <li class="dropdown">
-        <a href="#" data-i18n="services">Services ▼</a>
-        <div class="dropdown-menu">
-          <div class="menu-header" data-i18n="service_desc">Customized service packages to meet your needs</div>
-          <ul>
-            <li><a href="_pack_mapv.html" data-i18n="p1">Pack Global : Management & Analysis & Predictive modeling & Visualization</a></li>   
-            <li><a href="_pack_map.html" data-i18n="p2">Pack Management & Analysis & Predictive modeling</a></li> 
-            <li><a href="_pack_mav.html" data-i18n="p3">Pack Management & Analysis & Visualization</a></li> 
-            <li><a href="_pack_mpv.html" data-i18n="p4">Pack Management & Predictive modeling & Visualization</a></li> 
-            <li><a href="_pack_apv.html" data-i18n="p5">Pack Analysis & Predictive modeling & Visualization</a></li> 
-            <li><a href="_pack_ma.html" data-i18n="p6">Pack Management & Analysis</a></li> 
-            <li><a href="_pack_mv.html" data-i18n="p7">Pack Management Visualization</a></li> 
-            <li><a href="_pack_mp.html" data-i18n="p8">Pack Management Predictive modeling</a></li> 
-            <li><a href="_pack_pv.html" data-i18n="p9">Pack Predictive modeling & Visualization</a></li> 
-            <li><a href="_pack_av.html" data-i18n="p10">Pack Analysis & Visualization</a></li> 
-            <li><a href="_pack_ap.html" data-i18n="p11">Pack Analysis & Predictive modeling</a></li> 
-          </ul>
-        </div>
-      </li>
-      <li class="dropdown">
-        <a href="#" data-i18n="company">Company ▼</a>
-        <div class="dropdown-menu">
-          <div class="menu-header" data-i18n="company_desc">Learn more about who we are and what drives us</div>
-          <ul>
-            <li><a href="_company_blog.html" data-i18n="c1">Blog</a></li>   
-            <li><a href="_company_missions.html" data-i18n="c2">Missions</a></li> 
-            <li><a href="_company_values.html" data-i18n="c3">Values</a></li> 
-            <li><a href="_company_responsability.html" data-i18n="c4">Corporate social responsibility</a></li>  
-          </ul>
-        </div>
-      </li>
-      <li><a href="logbook.html" data-i18n="logbook">Logbook</a></li>
-    </ul>
-
-    <div class="search-icon">
-      <i class="fas fa-search"></i>
-    </div>
-
-    <button class="contact-btn" data-i18n="contact">
-      Contact us <i class="fas fa-arrow-up-right-from-square"></i>
-    </button>
-
-      <div class="lang-select">
-        <button class="lang-btn" id="langToggle">EN ▾</button>
-        <ul class="lang-dropdown" id="langDropdown">
-          <li data-lang="en">EN</li>
-          <li data-lang="fr">FR</li>
-          <li data-lang="es">ES</li>
-          <li data-lang="wo">WO</li>
-        </ul>
+    <!-- Your HTML here (header, menu, etc.) -->
+    <nav class="navbar">
+      <div class="logo">
+        <img src="logo.png" alt="Barkeelu" />
+        <div class="logo-text" data-i18n="motto">EXPLORE AND DEVELOP<br>UNKNOWN LANDS</div>
       </div>
-    </nav>
-
-  <!-- Début du script corrigé -->
-  <script>
-    function setLanguage(lang) {
-      localStorage.setItem("selectedLang", lang);
-      //if (lang === "en") return; // Pas besoin de charger de fichier 
   
-      fetch(`translations/${lang}.json`)
-        .then(res => res.json())
-        .then(translations => {
-          document.querySelectorAll("[data-i18n]").forEach(el => {
-            const key = el.getAttribute("data-i18n");
-            if (translations[key]) {
-              el.innerHTML = translations[key];
-            }
-          });
-        })
-        .catch(err => console.error(`Erreur de traduction (${lang})`, err));
-    }
+      <div class="menu-toggle" id="menu-toggle">
+        <i class="fas fa-bars"></i>
+      </div>
   
-    document.addEventListener("DOMContentLoaded", () => {
-      const savedLang = localStorage.getItem("selectedLang") || "en";
-      setLanguage(savedLang);
-      const langBtn = document.getElementById("langToggle");
-      if (langBtn) langBtn.textContent = `${savedLang.toUpperCase()} ▾`;
-    });
+      <ul class="nav-links" id="nav-links">
+        <li class="dropdown">
+          <a href="#" data-i18n="sectors">Sectors ▼</a>
+          <div class="dropdown-menu">
+            <div class="menu-header" data-i18n="sectors_desc">Discover the industries we serve</div>
+            <ul>
+              <li><a href="_sectors_consumer.html" data-i18n="s1">Consumer goods & retail</a></li>
+              <li><a href="_sectors_finance.html" data-i18n="s2">Financial services & insurance</a></li>
+              <li><a href="_sectors_health.html" data-i18n="s3">Health & wellness</a></li>
+              <li><a href="_sectors_techno.html" data-i18n="s4">Technology & telecommunications</a></li>
+              <li><a href="_sectors_transport.html" data-i18n="s5">Transportation & automotive</a></li>
+              <li><a href="_sectors_public_sec.html" data-i18n="s6">Public sector & non-profit organizations</a></li>
+              <li><a href="_sectors_industry.html" data-i18n="s7">Industry</a></li>
+            </ul>
+          </div>
+        </li>
   
-    const langBtn = document.getElementById("langToggle");
-    const langDropdown = document.getElementById("langDropdown");
+        <li class="dropdown">
+          <a href="#" data-i18n="expertise">Expertise ▼</a>
+          <div class="dropdown-menu company">
+            <div class="menu-header" data-i18n="expertise_desc">Our areas of technical and strategic expertise</div>
+            <ul>
+              <li><a href="_sectors_consumer.html" data-i18n="s1">Consumer goods & retail</a></li>
+              <li><a href="_sectors_finance.html" data-i18n="s2">Financial services & insurance</a></li>
+              <li><a href="_sectors_health.html" data-i18n="s3">Health & wellness</a></li>
+              <li><a href="_sectors_techno.html" data-i18n="s4">Technology & telecommunications</a></li>
+              <li><a href="_sectors_transport.html" data-i18n="s5">Transportation & automotive</a></li>
+              <li><a href="_sectors_public_sec.html" data-i18n="s6">Public sector & non-profit organizations</a></li>
+              <li><a href="_sectors_industry.html" data-i18n="s7">Industry</a></li> 
+            </ul>
+          </div>
+        </li>
+        <li class="dropdown">
+          <a href="#" data-i18n="services">Services ▼</a>
+          <div class="dropdown-menu services">
+            <div class="menu-header" data-i18n="service_desc">Customized service packages to meet your needs</div>
+            <ul>
+              <li><a href="_pack_mapv.html" data-i18n="p1">Pack Global : Management & Analysis & Predictive modeling & Visualization</a></li>   
+              <li><a href="_pack_map.html" data-i18n="p2">Pack Management & Analysis & Predictive modeling</a></li> 
+              <li><a href="_pack_mav.html" data-i18n="p3">Pack Management & Analysis & Visualization</a></li> 
+              <li><a href="_pack_mpv.html" data-i18n="p4">Pack Management & Predictive modeling & Visualization</a></li> 
+              <li><a href="_pack_apv.html" data-i18n="p5">Pack Analysis & Predictive modeling & Visualization</a></li> 
+              <li><a href="_pack_ma.html" data-i18n="p6">Pack Management & Analysis</a></li> 
+              <li><a href="_pack_mv.html" data-i18n="p7">Pack Management Visualization</a></li> 
+              <li><a href="_pack_mp.html" data-i18n="p8">Pack Management Predictive modeling</a></li> 
+              <li><a href="_pack_pv.html" data-i18n="p9">Pack Predictive modeling & Visualization</a></li> 
+              <li><a href="_pack_av.html" data-i18n="p10">Pack Analysis & Visualization</a></li> 
+              <li><a href="_pack_ap.html" data-i18n="p11">Pack Analysis & Predictive modeling</a></li> 
+              <li><a href="_pack_service_data_analysis.html" data-i18n="ps1">Data analysis</a></li>
+              <li><a href="_pack_service_data_engineering.html" data-i18n="ps2">Data engineering</a></li>
+              <li><a href="_pack_service_data_security_and_compliance.html" data-i18n="ps3">Data security & compliance</a></li> 
+              <li><a href="_pack_service_data_visualization.html" data-i18n="ps4">Data visualization</a></li>
+              <li><a href="_pack_service_market_research.html" data-i18n="ps5">Market research</a></li>
+              <li><a href="_pack_service_predictive_modeling_and_ai.html" data-i18n="ps6">Predictive modeling & AI</a></li>
+              <li><a href="_pack_service_web_development.html" data-i18n="ps7">Web development</a></li>    
+            </ul>
+          </div>
+        </li>
+        <li class="dropdown">
+          <a href="#" data-i18n="company">Company ▼</a>
+          <div class="dropdown-menu company">
+            <div class="menu-header" data-i18n="company_desc">Learn more about who we are and what drives us</div>
+            <ul>
+              <li><a href="_company_blog.html" data-i18n="c1">Blog</a></li>   
+              <li><a href="_company_missions.html" data-i18n="c2">Missions</a></li> 
+              <li><a href="_company_values.html" data-i18n="c3">Values</a></li> 
+              <li><a href="_company_responsability.html" data-i18n="c4">Corporate social responsibility</a></li>  
+            </ul>
+          </div>
+        </li>
+        <li><a href="logbook.html" data-i18n="logbook">Logbook</a></li>
+      </ul>
   
-    langBtn.addEventListener("click", () => {
-      langDropdown.style.display = langDropdown.style.display === "block" ? "none" : "block";
-    });
+      <div class="search-icon">
+        <i class="fas fa-search"></i>
+      </div>
   
-    document.addEventListener("click", e => {
-      if (!e.target.closest(".lang-select")) {
-        langDropdown.style.display = "none";
-      }
-    });
+      <button class="contact-btn" data-i18n="contact">
+        Contact us <i class="fas fa-arrow-up-right-from-square"></i>
+      </button>
   
-    document.querySelectorAll(".lang-dropdown li").forEach(item => {
-      item.addEventListener("click", () => {
-        const lang = item.getAttribute("data-lang");
-        setLanguage(lang);
-        langBtn.textContent = `${lang.toUpperCase()} ▾`;
-        langDropdown.style.display = "none";
-      });
-    });
+        <div class="lang-select">
+          <button class="lang-btn" id="langToggle">EN ▾</button>
+          <ul class="lang-dropdown" id="langDropdown">
+            <li data-lang="en">EN</li>
+            <li data-lang="fr">FR</li>
+            <li data-lang="es">ES</li>
+            <li data-lang="wo">WO</li>
+          </ul>
+        </div>
+      </nav>
   
-    const menuToggle = document.getElementById("menu-toggle");
-    const navLinks = document.getElementById("nav-links");
-  
-    menuToggle.addEventListener("click", () => {
-      navLinks.classList.toggle("open");
-    });
-  
-    document.querySelectorAll('.dropdown > a').forEach(link => {
-      link.addEventListener('click', function (e) {
-        e.preventDefault();
-        const menu = this.nextElementSibling;
-        document.querySelectorAll('.dropdown-menu').forEach(m => {
-          if (m !== menu) m.style.display = 'none';
-        });
-        menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
-      });
-    });
-  
-    document.addEventListener('click', function (e) {
-      if (!e.target.closest('.dropdown')) {
-        document.querySelectorAll('.dropdown-menu').forEach(m => m.style.display = 'none');
-      }
-    });
-
-    document.addEventListener("DOMContentLoaded", () => {
-      const path = window.location.hash.slice(2); // Enlève le #/ → ex: strategic-marketing.html
+    <!-- Début du script corrigé -->
+    <script>
+      function setLanguage(lang) {
+        localStorage.setItem("selectedLang", lang);
+        //if (lang === "en") return; // Pas besoin de charger de fichier 
     
-      if (path) {
-        console.log("Page demandée depuis 404 :", path);
-    
-        // Liste des pages autorisées
-        const allowedPages = [
-          "strategic-marketing.html",
-          "clients-patients.html",
-          "research-development.html",
-          "innovation.html"
-        ];
-    
-        if (allowedPages.includes(path)) {
-          // Charger dynamiquement le contenu de la page
-          fetch(path)
-            .then(res => {
-              if (!res.ok) throw new Error("Fichier non trouvé");
-              return res.text();
-            })
-            .then(html => {
-              document.body.innerHTML = html;
-            })
-            .catch(() => {
-              showNotFound();
+        fetch(`translations/${lang}.json`)
+          .then(res => res.json())
+          .then(translations => {
+            document.querySelectorAll("[data-i18n]").forEach(el => {
+              const key = el.getAttribute("data-i18n");
+              if (translations[key]) {
+                el.innerHTML = translations[key];
+              }
             });
-        } else {
-          showNotFound();
+          })
+          .catch(err => console.error(`Erreur de traduction (${lang})`, err));
+      }
+    
+      document.addEventListener("DOMContentLoaded", () => {
+        const savedLang = localStorage.getItem("selectedLang") || "en";
+        setLanguage(savedLang);
+        const langBtn = document.getElementById("langToggle");
+        if (langBtn) langBtn.textContent = `${savedLang.toUpperCase()} ▾`;
+      });
+    
+      const langBtn = document.getElementById("langToggle");
+      const langDropdown = document.getElementById("langDropdown");
+    
+      langBtn.addEventListener("click", () => {
+        langDropdown.style.display = langDropdown.style.display === "block" ? "none" : "block";
+      });
+    
+      document.addEventListener("click", e => {
+        if (!e.target.closest(".lang-select")) {
+          langDropdown.style.display = "none";
         }
-      }
+      });
     
-      function showNotFound() {
-        document.body.innerHTML = `
-          <h1>Oups, cette page n'existe pas 🛸</h1>
-          <p><a href="index.html">Retour à l'accueil</a></p>
-        `;
-      }
-    });
+      document.querySelectorAll(".lang-dropdown li").forEach(item => {
+        item.addEventListener("click", () => {
+          const lang = item.getAttribute("data-lang");
+          setLanguage(lang);
+          langBtn.textContent = `${lang.toUpperCase()} ▾`;
+          langDropdown.style.display = "none";
+        });
+      });
     
-  </script>
+      const menuToggle = document.getElementById("menu-toggle");
+      const navLinks = document.getElementById("nav-links");
+    
+      menuToggle.addEventListener("click", () => {
+        navLinks.classList.toggle("open");
+      });
+    
+      document.querySelectorAll('.dropdown > a').forEach(link => {
+        link.addEventListener('click', function (e) {
+          e.preventDefault();
+          const menu = this.nextElementSibling;
+          document.querySelectorAll('.dropdown-menu').forEach(m => {
+            if (m !== menu) m.style.display = 'none';
+          });
+          menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+        });
+      });
+    
+      document.addEventListener('click', function (e) {
+        if (!e.target.closest('.dropdown')) {
+          document.querySelectorAll('.dropdown-menu').forEach(m => m.style.display = 'none');
+        }
+      });
   
-  </body>
-  </html>
+      document.addEventListener("DOMContentLoaded", () => {
+        const path = window.location.hash.slice(2); // Enlève le #/ → ex: strategic-marketing.html
+      
+        if (path) {
+          console.log("Page demandée depuis 404 :", path);
+      
+          // Liste des pages autorisées
+          const allowedPages = [
+            "strategic-marketing.html",
+            "clients-patients.html",
+            "research-development.html",
+            "innovation.html"
+          ];
+      
+          if (allowedPages.includes(path)) {
+            // Charger dynamiquement le contenu de la page
+            fetch(path)
+              .then(res => {
+                if (!res.ok) throw new Error("Fichier non trouvé");
+                return res.text();
+              })
+              .then(html => {
+                document.body.innerHTML = html;
+              })
+              .catch(() => {
+                showNotFound();
+              });
+          } else {
+            showNotFound();
+          }
+        }
+      
+        function showNotFound() {
+          document.body.innerHTML = `
+            <h1>Oups, cette page n'existe pas 🛸</h1>
+            <p><a href="index.html">Retour à l'accueil</a></p>
+          `;
+        }
+      });
+      
+    </script>
+    
+    </body>
+</html>
