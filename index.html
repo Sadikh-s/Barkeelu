@@ -69,14 +69,15 @@
       display: block;
     }
 
-    .dropdown-menu:not(.services, .company) {
+    .dropdown-menu:not(.services) {
       display: none;
       position: absolute;
       top: 100%;
-      left: 0;
+      left: 50%;
+      transform: translateX(-50%);
       background-color: white;
       box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-      min-width: 300px;
+      min-width: 375px;
       z-index: 1000;
       border-radius: 8px;
       padding: 10px 0;
@@ -86,23 +87,11 @@
       display: none;
       position: absolute;
       top: 100%;
-      left: 0;
+      left: 50%;
+      transform: translateX(-50%);
       background: white;
       color: black;
       min-width: 1000px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      border-radius: 8px;
-      z-index: 1000;
-    }
-
-    .dropdown-menu.company {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      background: white;
-      color: black;
-      min-width: 375px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
       border-radius: 8px;
       z-index: 1000;
@@ -270,7 +259,7 @@
   
         <li class="dropdown">
           <a href="#" data-i18n="expertise">Expertise ▼</a>
-          <div class="dropdown-menu company">
+          <div class="dropdown-menu">
             <div class="menu-header" data-i18n="expertise_desc">Our areas of technical and strategic expertise</div>
             <ul>
               <li><a href="_sectors_consumer.html" data-i18n="s1">Consumer goods & retail</a></li>
@@ -311,7 +300,7 @@
         </li>
         <li class="dropdown">
           <a href="#" data-i18n="company">Company ▼</a>
-          <div class="dropdown-menu company">
+          <div class="dropdown-menu">
             <div class="menu-header" data-i18n="company_desc">Learn more about who we are and what drives us</div>
             <ul>
               <li><a href="_company_blog.html" data-i18n="c1">Blog</a></li>   
