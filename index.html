@@ -274,117 +274,26 @@
           </div>
         </li>
 
-<li class="dropdown" id="expertiseDropdown">
-  <a href="#" id="expertiseToggle" data-i18n="expertise">Expertise ▼</a>
-  <div class="dropdown-menu services" id="expertiseMenu" style="display: none;">
-    <div class="menu-header" data-i18n="expertise_desc">Our areas of technical and strategic expertise</div>
-    <div class="menu-container" style="display: flex; gap: 30px; padding: 20px; flex-wrap: wrap;">
-      <div class="categories" style="flex: 1;">
-        <ul style="list-style: none; padding: 0;">
-          <li class="active" onclick="showExpertise('health')">Health</li>
-          <li onclick="showExpertise('tech')">Technology</li>
-          <li onclick="showExpertise('finance')">Finance</li>
-          <li onclick="showExpertise('transport')">Mobility</li>
-          <li onclick="showExpertise('industry')">Industry</li>
-        </ul>
-      </div>
-      <div class="expertise-content" id="expertise-list" style="flex: 3; display: flex; flex-wrap: wrap; gap: 10px;">
-        <!-- Dynamic content loaded by JS -->
-      </div>
-    </div>
-  </div>
-</li>
-<!-- <li class="dropdown" >
-  <a href="#" data-i18n="expertise">Expertise ▼</a>
-  <div class="dropdown-menu services" style="display: none;">
-    <div class="menu-header" data-i18n="expertise_desc">Our areas of technical and strategic expertise</div>
-    <div class="menu-container" style="display: flex; gap: 30px; padding: 20px;">
-      <div class="sectors" style="min-width: 250px;">
-        <ul style="list-style: none; padding: 0; margin: 0;">
-          <li onclick="showExpertise('consumer')">Consumer Goods & Retail</li>
-          <li onclick="showExpertise('finance')">Financial Services & Insurance</li>
-          <li onclick="showExpertise('health')">Health & Wellness</li>
-          <li onclick="showExpertise('tech')">Technology & Telecommunications</li>
-          <li onclick="showExpertise('transport')">Transportation & Automotive</li>
-          <li onclick="showExpertise('public')">Public Sector & Non-Profit</li>
-          <li onclick="showExpertise('industry')">Industry</li>
-        </ul>
-      </div>
-      <div style="flex: 1;">
-        <div class="expertise-box" id="consumer">
-          <ul>
-            <li>Consumer insights & behavioral analytics</li>
-            <li>Retail performance dashboards</li>
-            <li>Pricing & promotion analytics</li>
-            <li>New product testing & demand forecasting</li>
-            <li>Category management support</li>
-          </ul>
-          <a class="explore-btn" href="_sectors_consumer.html">Explore</a>
-        </div>
-        <div class="expertise-box" id="finance" style="display: none;">
-          <ul>
-            <li>Risk & fraud analytics</li>
-            <li>Client segmentation & churn prediction</li>
-            <li>Credit scoring models</li>
-            <li>Regulatory data compliance</li>
-            <li>Market intelligence for fintech</li>
-          </ul>
-          <a class="explore-btn" href="_sectors_finance.html">Explore</a>
-        </div>
-        <div class="expertise-box" id="health" style="display: none;">
-          <ul>
-            <li>Patient journey analytics</li>
-            <li>Digital health solutions (DTx)</li>
-            <li>Rare diseases market analysis</li>
-            <li>Clinical trials digitalization</li>
-            <li>AI for personalized medicine</li>
-          </ul>
-          <a class="explore-btn" href="_sectors_health.html">Explore</a>
-        </div>
-        <div class="expertise-box" id="tech" style="display: none;">
-          <ul>
-            <li>Usage behavior analytics</li>
-            <li>Service optimization dashboards</li>
-            <li>Network performance monitoring</li>
-            <li>Product-market fit analysis</li>
-            <li>Churn prevention modeling</li>
-          </ul>
-          <a class="explore-btn" href="_sectors_techno.html">Explore</a>
-        </div>
-        <div class="expertise-box" id="transport" style="display: none;">
-          <ul>
-            <li>Mobility data intelligence</li>
-            <li>Predictive maintenance models</li>
-            <li>Vehicle usage analysis</li>
-            <li>Smart infrastructure & IoT data</li>
-            <li>Demand forecasting for logistics</li>
-          </ul>
-          <a class="explore-btn" href="_sectors_transport.html">Explore</a>
-        </div>
-        <div class="expertise-box" id="public" style="display: none;">
-          <ul>
-            <li>Data for public decision-making</li>
-            <li>Socio-economic impact analysis</li>
-            <li>Geographic data visualization</li>
-            <li>Citizen behavior insights</li>
-            <li>Open data valorization</li>
-          </ul>
-          <a class="explore-btn" href="_sectors_public_sec.html">Explore</a>
-        </div>
-        <div class="expertise-box" id="industry" style="display: none;">
-          <ul>
-            <li>Industrial performance monitoring</li>
-            <li>Smart factory analytics</li>
-            <li>Predictive quality control</li>
-            <li>Supply chain optimization</li>
-            <li>Energy efficiency insights</li>
-          </ul>
-          <a class="explore-btn" href="_sectors_industry.html">Explore</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</li> -->
+        <li class="dropdown" id="expertiseDropdown">
+          <a href="#" id="expertiseToggle">Expertise ▼</a>
+          <div class="dropdown-menu services" id="expertiseMenu">
+            <div class="menu-header">Our areas of technical and strategic expertise</div>
+            <div class="menu-container">
+              <div class="categories" style="flex: 1;">
+                <ul>
+                  <li data-category="health">Health</li>
+                  <li data-category="tech">Technology</li>
+                  <li data-category="finance">Finance</li>
+                  <li data-category="transport">Mobility</li>
+                  <li data-category="industry">Industry</li>
+                </ul>
+              </div>
+              <div class="expertise-content" id="expertise-list">
+                <!-- Content will be injected here -->
+              </div>
+            </div>
+          </div>
+        </li>
 <li class="dropdown">
   <a href="#" data-i18n="services">Services ▼</a>
   <div class="dropdown-menu services">
@@ -582,7 +491,7 @@ document.getElementById('expertiseToggle').addEventListener('click', function (e
   }
 });
 
-  const expertiseData = {
+const expertiseData = {
     health: [
       "Innovative biotherapies",
       "Patient journey",
@@ -623,33 +532,39 @@ document.getElementById('expertiseToggle').addEventListener('click', function (e
     ]
   };
 
-  function showExpertise(category) {
-    // Change active category
-    document.querySelectorAll('#expertiseDropdown .categories li').forEach(el => el.classList.remove('active'));
-    document.querySelector(`#expertiseDropdown .categories li[onclick="showExpertise('${category}')"]`).classList.add('active');
+  const categories = document.querySelectorAll('#expertiseDropdown .categories li');
+  const expertiseList = document.getElementById('expertise-list');
+  const expertiseMenu = document.getElementById('expertiseMenu');
+  const expertiseToggle = document.getElementById('expertiseToggle');
 
-    // Populate right side
-    const list = document.getElementById('expertise-list');
-    list.innerHTML = expertiseData[category]
-      .map(item => `<div style="background:#d9ecff; padding:10px 15px; border-radius:6px; flex:1 1 calc(50% - 10px);">${item}</div>`)
-      .join('') + '<a class="explore-btn" style="margin-top:20px; background:#fff; color:#b3082c; border:2px solid #b3082c; padding:10px 16px; border-radius:12px; display:inline-block;" href="#">Explore</a>';
+  function showExpertise(category) {
+    categories.forEach(el => {
+      el.classList.toggle('active', el.dataset.category === category);
+    });
+
+    expertiseList.innerHTML = expertiseData[category]
+      .map(item => `<div>${item}</div>`) 
+      .join('') +
+      '<a class="explore-btn" href="#">Explore</a>';
   }
 
-  document.getElementById('expertiseToggle').addEventListener('click', function (e) {
+  expertiseToggle.addEventListener('click', function (e) {
     e.preventDefault();
-    const menu = document.getElementById('expertiseMenu');
-    const isVisible = menu.style.display === 'block';
-
+    const isVisible = expertiseMenu.style.display === 'block';
     document.querySelectorAll('.dropdown-menu').forEach(m => m.style.display = 'none');
     if (!isVisible) {
-      menu.style.display = 'block';
-      showExpertise('health');
+      expertiseMenu.style.display = 'block';
+      
     }
+  });
+
+  categories.forEach(cat => {
+    cat.addEventListener('click', () => showExpertise(cat.dataset.category));
   });
 
   document.addEventListener('click', function (e) {
     if (!e.target.closest('#expertiseDropdown')) {
-      document.getElementById('expertiseMenu').style.display = 'none';
+      expertiseMenu.style.display = 'none';
     }
   });
 

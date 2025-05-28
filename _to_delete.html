@@ -1,222 +1,401 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Expertise Menu</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Barkeelu</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+    body { background-color: #b3082c; }
+    nav.navbar {
+      display: flex; justify-content: space-between; align-items: center;
+      background: #fff; padding: 15px 20px; flex-wrap: wrap; position: relative;
     }
-
-    /* Navigation */
-    .navbar {
-      background-color: #fff;
-      border-bottom: 1px solid #ddd;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 20px;
-      height: 60px;
-      position: relative;
+    .logo { display: flex; align-items: center; }
+    .logo img { height: 40px; margin-right: 10px; }
+    .logo-text { font-size: 12px; color: #b3082c; font-weight: bold; }
+    .menu-toggle { display: none; font-size: 1.5rem; cursor: pointer; }
+    .nav-links { display: flex; align-items: center; list-style: none; flex-wrap: wrap; }
+    .nav-links li { margin: 0 40px; position: relative; }
+    .nav-links a { text-decoration: none; color: #001f4d; font-weight: 600; padding: 8px; display: block; }
+    .dropdown-menu {
+      display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+      min-width: 1200px; box-shadow: 0 8px 32px rgba(54, 79, 199, 0.08);
+      border-radius: 0 0 40px 40px; z-index: 1000; padding: 48px 0;
     }
-
-    .navbar ul {
-      list-style: none;
-      display: flex;
-      gap: 25px;
+    /* Custom colors for each submenu */
+    .dropdown-menu.sectors   { background: #fed700; }
+    .dropdown-menu.expertise { background: #63bcfc; }
+    .dropdown-menu.services  { background: #58eab1; }
+    .dropdown-menu.company   { background: #fba5a4; }
+    .dropdown-menu .menu-header {
+      font-weight: bold; font-size: 18px; padding: 0 0 30px 60px; color: #1b254b; background: none;
     }
-
-    .navbar li {
-      cursor: pointer;
-      font-weight: bold;
+    .dropdown-content-flex {
+      display: flex; flex-direction: row; width: 100%; min-height: 320px;
     }
-
-    .menu-container {
-      display: none;
-      position: absolute;
-      top: 60px;
-      left: 0;
-      width: 100%;
-      background-color: #f9f9f9;
-      display: flex;
-      padding: 20px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      z-index: 1000;
+    .dropdown-categories {
+      flex: 1.5; padding-left: 60px; padding-right: 40px;
     }
-
-    .sectors {
-      width: 30%;
+    .dropdown-categories ul { list-style: none; padding: 0; margin: 0; }
+    .dropdown-categories li {
+      color: #1b254b; font-size: 1.15rem; margin-bottom: 20px;
+      cursor: pointer; opacity: 0.5; border-bottom: 2px solid transparent;
+      transition: color 0.2s, border 0.2s, opacity 0.2s;
+      font-weight: 500; padding-bottom: 4px;
     }
-
-    .sectors ul {
-      padding: 0;
+    .dropdown-categories li.active {
+      color: #1b254b; border-bottom: 2px solid #fd1144; opacity: 1; font-weight: bold;
     }
-
-    .sectors li {
-      padding: 10px;
-      cursor: pointer;
+    .dropdown-content-wrapper {
+      flex: 4; display: flex; flex-direction: column;
+      justify-content: center; align-items: flex-end; position: relative; padding-right: 80px;
     }
-
-    .sectors li:hover {
-      background-color: #eee;
+    .dropdown-items {
+      display: grid; grid-template-columns: repeat(2, 260px);
+      gap: 20px 32px; align-items: start; margin-bottom: 0; margin-top: 0; width: 600px;
     }
-
-    .expertise-box {
-      width: 70%;
-      display: none;
-      padding-left: 30px;
+    .dropdown-tile {
+      background: #fff; border-radius: 12px; color: #1b254b;
+      font-size: 1.1rem; padding: 18px 20px; font-weight: 500;
+      box-shadow: 0 2px 8px rgba(54,79,199,0.06); border: 1px solid #e5e5e5;
     }
-
-    .expertise-box ul {
-      padding-left: 0;
-    }
-
-    .expertise-box li {
-      padding: 6px 0;
-    }
-
     .explore-btn {
-      display: inline-block;
-      margin-top: 10px;
-      padding: 8px 16px;
-      background-color: crimson;
-      color: white;
-      text-decoration: none;
-      border-radius: 5px;
+      position: absolute; top: 0; right: 0; background: #fff; color: #fd1144;
+      padding: 14px 32px; border-radius: 24px; font-size: 1.05rem; font-weight: bold;
+      text-decoration: none; border: none; display: flex; align-items: center;
+      margin-top: 0; box-shadow: 0 2px 8px rgba(54,79,199,0.06); transition: background 0.2s;
+    }
+    .explore-btn i { margin-left: 12px; font-size: 1.2rem; }
+    .explore-btn:hover { background: #fd1144; color: #fff; }
+    @media (max-width: 1200px) {
+      .dropdown-menu { min-width: 95vw; padding: 24px 0; }
+      .dropdown-content-wrapper { padding-right: 16px; }
+      .dropdown-items { width: 100%; }
+    }
+    @media (max-width: 900px) {
+      .dropdown-content-flex { flex-direction: column; }
+      .dropdown-content-wrapper { align-items: flex-start; }
     }
   </style>
 </head>
 <body>
-
-  <!-- Navigation Bar -->
-  <div class="navbar">
-    <div class="logo">MyStartup</div>
-    <ul>
-      <li>Home</li>
-      <li>Sectors</li>
-      <li id="expertise-trigger">Expertises</li>
-      <li>About Us</li>
-      <li>Careers</li>
-      <li>Contact</li>
+  <nav class="navbar">
+    <div class="logo">
+      <img src="logo.png" alt="Barkeelu" />
+      <div class="logo-text">EXPLORE AND DEVELOP<br>UNKNOWN LANDS</div>
+    </div>
+    <div class="menu-toggle" id="menu-toggle">
+      <i class="fas fa-bars"></i>
+    </div>
+    <ul class="nav-links" id="nav-links">
+      <!-- Sectors -->
+      <li class="dropdown">
+        <a href="#" data-dropdown="sectors" aria-haspopup="true" aria-expanded="false">Sectors ▼</a>
+        <div class="dropdown-menu sectors" id="menu-sectors">
+          <div class="menu-header">Discover the industries we serve</div>
+          <div class="dropdown-content-flex">
+            <div class="dropdown-categories">
+              <ul>
+                <li data-category="consumer" class="active">Consumer goods & retail</li>
+                <li data-category="finance">Financial services & insurance</li>
+                <li data-category="health">Health & wellness</li>
+                <li data-category="tech">Technology & telecommunications</li>
+                <li data-category="transport">Transportation & automotive</li>
+                <li data-category="public_sec">Public sector & non-profit organizations</li>
+                <li data-category="industry">Industry</li>
+              </ul>
+            </div>
+            <div class="dropdown-content-wrapper">
+              <div class="dropdown-items" id="sectors-content"></div>
+              <a href="#" class="explore-btn">Explore <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+      </li>
+      <!-- Expertise -->
+      <li class="dropdown" id="expertiseDropdown">
+        <a href="#" data-dropdown="expertise" id="expertiseToggle" aria-haspopup="true" aria-expanded="false">Expertise ▼</a>
+        <div class="dropdown-menu expertise" id="menu-expertise">
+          <div class="menu-header">Our areas of technical and strategic expertise</div>
+          <div class="dropdown-content-flex">
+            <div class="dropdown-categories">
+              <ul>
+                <li data-category="health" class="active">Health</li>
+                <li data-category="tech">Technology</li>
+                <li data-category="finance">Finance</li>
+                <li data-category="transport">Mobility</li>
+                <li data-category="industry">Industry</li>
+              </ul>
+            </div>
+            <div class="dropdown-content-wrapper">
+              <div class="dropdown-items" id="expertise-content"></div>
+              <a href="#" class="explore-btn">Explore <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+      </li>
+      <!-- Services -->
+      <li class="dropdown">
+        <a href="#" data-dropdown="services" aria-haspopup="true" aria-expanded="false">Services ▼</a>
+        <div class="dropdown-menu services" id="menu-services">
+          <div class="menu-header">Customized service packages to meet your needs</div>
+          <div class="dropdown-content-flex">
+            <div class="dropdown-categories">
+              <ul>
+                <li data-category="global" class="active">Pack Global : Management & Analysis & Predictive modeling & Visualization</li>
+                <li data-category="map">Pack Management & Analysis & Predictive modeling</li>
+                <li data-category="mav">Pack Management & Analysis & Visualization</li>
+                <li data-category="mpv">Pack Management & Predictive modeling & Visualization</li>
+                <li data-category="apv">Pack Analysis & Predictive modeling & Visualization</li>
+                <li data-category="ma">Pack Management & Analysis</li>
+                <li data-category="mv">Pack Management Visualization</li>
+                <li data-category="mp">Pack Management Predictive modeling</li>
+                <li data-category="pv">Pack Predictive modeling & Visualization</li>
+                <li data-category="av">Pack Analysis & Visualization</li>
+                <li data-category="ap">Pack Analysis & Predictive modeling</li>
+                <li data-category="data_analysis">Data analysis</li>
+                <li data-category="data_management">Data management</li>
+                <li data-category="data_visualization">Data visualization</li>
+                <li data-category="market_research">Market research</li>
+                <li data-category="predictive_ai">Predictive modeling & AI</li>
+                <li data-category="web_development">Web development</li>
+              </ul>
+            </div>
+            <div class="dropdown-content-wrapper">
+              <div class="dropdown-items" id="services-content"></div>
+              <a href="#" class="explore-btn">Explore <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+      </li>
+      <!-- Company -->
+      <li class="dropdown">
+        <a href="#" data-dropdown="company" aria-haspopup="true" aria-expanded="false">Company ▼</a>
+        <div class="dropdown-menu company" id="menu-company">
+          <div class="menu-header">Learn more about who we are and what drives us</div>
+          <div class="dropdown-content-flex">
+            <div class="dropdown-categories">
+              <ul>
+                <li data-category="blog" class="active">Blog</li>
+                <li data-category="missions">Missions</li>
+                <li data-category="values">Values</li>
+                <li data-category="responsability">Corporate social responsibility</li>
+              </ul>
+            </div>
+            <div class="dropdown-content-wrapper">
+              <div class="dropdown-items" id="company-content"></div>
+              <a href="#" class="explore-btn">Explore <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+      </li>
+      <!-- Logbook -->
+      <li><a href="logbook.html" data-i18n="logbook">Logbook</a></li>
     </ul>
-  </div>
-
-  <!-- Expertise Menu -->
-  <div class="menu-container" id="expertise-menu">
-    <div class="sectors">
-      <ul>
-        <li onclick="showExpertise('consumer')">Consumer Goods & Retail</li>
-        <li onclick="showExpertise('finance')">Financial Services & Insurance</li>
-        <li onclick="showExpertise('health')">Health & Wellness</li>
-        <li onclick="showExpertise('tech')">Technology & Telecommunications</li>
-        <li onclick="showExpertise('transport')">Transportation & Automotive</li>
-        <li onclick="showExpertise('public')">Public Sector & Non-Profit</li>
-        <li onclick="showExpertise('industry')">Industry</li>
+    <div class="search-icon">
+      <i class="fas fa-search"></i>
+    </div>
+    <button class="contact-btn" data-i18n="contact">
+      Contact us <i class="fas fa-arrow-up-right-from-square"></i>
+    </button>
+    <div class="lang-select">
+      <button class="lang-btn" id="langToggle">EN ▾</button>
+      <ul class="lang-dropdown" id="langDropdown">
+        <li data-lang="en">EN</li>
+        <li data-lang="fr">FR</li>
+        <li data-lang="es">ES</li>
+        <li data-lang="wo">WO</li>
       </ul>
     </div>
-
-    <div class="expertise-box" id="consumer">
-      <ul>
-        <li>Consumer insights & behavioral analytics</li>
-        <li>Retail performance dashboards</li>
-        <li>Pricing & promotion analytics</li>
-        <li>New product testing & demand forecasting</li>
-        <li>Category management support</li>
-      </ul>
-      <a class="explore-btn" href="#">Explore</a>
-    </div>
-
-    <div class="expertise-box" id="finance">
-      <ul>
-        <li>Risk & fraud analytics</li>
-        <li>Client segmentation & churn prediction</li>
-        <li>Credit scoring models</li>
-        <li>Regulatory data compliance</li>
-        <li>Market intelligence for fintech</li>
-      </ul>
-      <a class="explore-btn" href="#">Explore</a>
-    </div>
-
-    <div class="expertise-box" id="health">
-      <ul>
-        <li>Patient journey analytics</li>
-        <li>Digital health solutions (DTx)</li>
-        <li>Rare diseases market analysis</li>
-        <li>Clinical trials digitalization</li>
-        <li>AI for personalized medicine</li>
-      </ul>
-      <a class="explore-btn" href="#">Explore</a>
-    </div>
-
-    <div class="expertise-box" id="tech">
-      <ul>
-        <li>Usage behavior analytics</li>
-        <li>Service optimization dashboards</li>
-        <li>Network performance monitoring</li>
-        <li>Product-market fit analysis</li>
-        <li>Churn prevention modeling</li>
-      </ul>
-      <a class="explore-btn" href="#">Explore</a>
-    </div>
-
-    <div class="expertise-box" id="transport">
-      <ul>
-        <li>Mobility data intelligence</li>
-        <li>Predictive maintenance models</li>
-        <li>Vehicle usage analysis</li>
-        <li>Smart infrastructure & IoT data</li>
-        <li>Demand forecasting for logistics</li>
-      </ul>
-      <a class="explore-btn" href="#">Explore</a>
-    </div>
-
-    <div class="expertise-box" id="public">
-      <ul>
-        <li>Data for public decision-making</li>
-        <li>Socio-economic impact analysis</li>
-        <li>Geographic data visualization</li>
-        <li>Citizen behavior insights</li>
-        <li>Open data valorization</li>
-      </ul>
-      <a class="explore-btn" href="#">Explore</a>
-    </div>
-
-    <div class="expertise-box" id="industry">
-      <ul>
-        <li>Industrial performance monitoring</li>
-        <li>Smart factory analytics</li>
-        <li>Predictive quality control</li>
-        <li>Supply chain optimization</li>
-        <li>Energy efficiency insights</li>
-      </ul>
-      <a class="explore-btn" href="#">Explore</a>
-    </div>
-  </div>
-
-  <!-- JavaScript -->
+  </nav>
   <script>
-    const menu = document.getElementById('expertise-menu');
-    const trigger = document.getElementById('expertise-trigger');
-    const boxes = document.querySelectorAll('.expertise-box');
+    // Data for each menu - Keep your labels!
+    const sectorsData = {
+      consumer: [
+        "Supermarkets", "Department stores", "Fashion & apparel", "Cosmetics & beauty", "Electronics"
+      ],
+      finance: [
+        "Banking", "Insurance", "Fintech", "Wealth management"
+      ],
+      health: [
+        "Pharma", "Biotech", "Medtech", "Hospitals", "Health services"
+      ],
+      tech: [
+        "Telecommunications", "IT services", "Software", "Internet", "Electronics manufacturing"
+      ],
+      transport: [
+        "Automotive", "Rail", "Aerospace", "Urban transport"
+      ],
+      public_sec: [
+        "Government", "Non-profit organizations", "NGOs"
+      ],
+      industry: [
+        "Manufacturing", "Industrial equipment", "Construction", "Energy"
+      ]
+    };
+    const expertiseData = {
+      health: [
+        "Innovative biotherapies", "Patient journey", "Rare diseases", "Digital therapeutics (DTx)",
+        "AI in health", "Personalized medicine", "Clinical trial digitalization", "HealthTech"
+      ],
+      tech: [
+        "Usage behavior analytics", "Service optimization", "Network performance", "Churn prediction", "Product-market fit"
+      ],
+      finance: [
+        "Risk & fraud analytics", "Client segmentation", "Credit scoring", "Regulatory compliance", "Fintech market intelligence"
+      ],
+      transport: [
+        "Mobility data insights", "Predictive maintenance", "Smart infrastructure", "Fleet analysis", "Demand forecasting"
+      ],
+      industry: [
+        "Smart factory analytics", "Performance monitoring", "Supply chain optimization", "Predictive quality control", "Energy efficiency"
+      ]
+    };
+    const servicesData = {
+      global: [
+        "Management", "Analysis", "Predictive modeling", "Visualization"
+      ],
+      map: [
+        "Management", "Analysis", "Predictive modeling"
+      ],
+      mav: [
+        "Management", "Analysis", "Visualization"
+      ],
+      mpv: [
+        "Management", "Predictive modeling", "Visualization"
+      ],
+      apv: [
+        "Analysis", "Predictive modeling", "Visualization"
+      ],
+      ma: [
+        "Management", "Analysis"
+      ],
+      mv: [
+        "Management", "Visualization"
+      ],
+      mp: [
+        "Management", "Predictive modeling"
+      ],
+      pv: [
+        "Predictive modeling", "Visualization"
+      ],
+      av: [
+        "Analysis", "Visualization"
+      ],
+      ap: [
+        "Analysis", "Predictive modeling"
+      ],
+      data_analysis: [
+        "Data exploration", "Data cleaning", "Data reporting"
+      ],
+      data_management: [
+        "Data governance", "Data warehousing"
+      ],
+      data_visualization: [
+        "Dashboards", "Reporting tools"
+      ],
+      market_research: [
+        "Market trends", "Competitor analysis"
+      ],
+      predictive_ai: [
+        "AI solutions", "Machine learning", "Forecasting"
+      ],
+      web_development: [
+        "Website", "Webapp", "API development"
+      ]
+    };
+    const companyData = {
+      blog: [
+        "Latest news", "Expert articles", "Team stories"
+      ],
+      missions: [
+        "Our missions", "Client stories"
+      ],
+      values: [
+        "Transparency", "Expertise", "Diversity"
+      ],
+      responsability: [
+      ]
+    };
 
-    trigger.addEventListener('click', () => {
-      menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
-      boxes.forEach(b => b.style.display = 'none');
-    });
-
-    function showExpertise(id) {
-      boxes.forEach(b => b.style.display = 'none');
-      document.getElementById(id).style.display = 'block';
+    // Renders for dropdowns
+    function setupDropdownMenu(menuId, data, defaultCat) {
+      const menu = document.getElementById(menuId);
+      const cats = menu.querySelectorAll('.dropdown-categories li');
+      const content = menu.querySelector('.dropdown-items');
+      function render(cat) {
+        const items = data[cat] || [];
+        content.innerHTML = items.map(item =>
+          `<div class="dropdown-tile">${item}</div>`
+        ).join('');
+      }
+      cats.forEach(li => {
+        li.addEventListener('click', function () {
+          cats.forEach(c => c.classList.remove('active'));
+          this.classList.add('active');
+          render(this.dataset.category);
+        });
+      });
+      render(defaultCat);
     }
 
-    // Optional: Hide on outside click
-    document.addEventListener('click', (e) => {
-      if (!menu.contains(e.target) && e.target !== trigger) {
-        menu.style.display = 'none';
-      }
+    document.addEventListener("DOMContentLoaded", function () {
+      // Menu burger mobile
+      const menuToggle = document.getElementById("menu-toggle");
+      const navLinks = document.getElementById("nav-links");
+      menuToggle.addEventListener("click", () => {
+        navLinks.classList.toggle("open");
+      });
+
+      // Dropdown logic
+      document.querySelectorAll('.dropdown > a[data-dropdown]').forEach(link => {
+        link.addEventListener('click', function (e) {
+          e.preventDefault();
+          const menuId = "menu-" + link.dataset.dropdown;
+          const menu = document.getElementById(menuId);
+          document.querySelectorAll('.dropdown-menu').forEach(m => {
+            if (m !== menu) m.style.display = 'none';
+          });
+          menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+        });
+      });
+      document.addEventListener('click', function (e) {
+        if (!e.target.closest('.dropdown')) {
+          document.querySelectorAll('.dropdown-menu').forEach(m => m.style.display = 'none');
+        }
+      });
+
+      // Apply to each dropdown
+      setupDropdownMenu('menu-sectors', sectorsData, 'consumer');
+      setupDropdownMenu('menu-expertise', expertiseData, 'health');
+      setupDropdownMenu('menu-services', servicesData, 'global');
+      setupDropdownMenu('menu-company', companyData, 'blog');
+
+      // Close menu mobile on link click
+      document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+          if (window.innerWidth <= 768) navLinks.classList.remove('open');
+        });
+      });
+      // Langue (pour la forme)
+      const langBtn = document.getElementById("langToggle");
+      const langDropdown = document.getElementById("langDropdown");
+      langBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        langDropdown.style.display = langDropdown.style.display === "block" ? "none" : "block";
+      });
+      document.querySelectorAll("#langDropdown li").forEach(li => {
+        li.addEventListener("click", () => {
+          langBtn.textContent = `${li.dataset.lang.toUpperCase()} ▾`;
+          langDropdown.style.display = "none";
+        });
+      });
+      document.addEventListener("click", (e) => {
+        if (!e.target.closest('.lang-select')) langDropdown.style.display = "none";
+      });
     });
   </script>
-
 </body>
 </html>
