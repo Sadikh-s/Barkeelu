@@ -7,7 +7,13 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
-    body { background-color: #b3082c; }
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #e7eaf3 0%, #c4d5e9 40%, #6e97c7 100%);
+    }
+    
+    
+    
     nav.navbar {
       display: flex; justify-content: space-between; align-items: center;
       background: #fff; padding: 15px 20px; flex-wrap: wrap; position: relative;
@@ -19,24 +25,36 @@
     .nav-links { display: flex; align-items: center; list-style: none; flex-wrap: wrap; }
     .nav-links li { margin: 0 40px; position: relative; }
     .nav-links a { text-decoration: none; color: #001f4d; font-weight: 600; padding: 8px; display: block; }
+
     .dropdown-menu {
       display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
-      min-width: 1200px; box-shadow: 0 8px 32px rgba(54, 79, 199, 0.08);
+      min-width: 500px; box-shadow: 0 8px 32px rgba(54, 79, 199, 0.08);
       border-radius: 0 0 40px 40px; z-index: 1000; padding: 48px 0;
+      transition: width 0.3s cubic-bezier(.4,0,.2,1), min-width 0.3s cubic-bezier(.4,0,.2,1);
+      background: white;
+      max-height: 80vh;
+      overflow-y: auto;
     }
-    /* Custom colors for each submenu */
+    {% comment %} .dropdown-menu.expertise { background: #63bcfc; } {% endcomment %}
     .dropdown-menu.sectors   { background: #fed700; }
     .dropdown-menu.expertise { background: #63bcfc; }
     .dropdown-menu.services  { background: #58eab1; }
     .dropdown-menu.company   { background: #fba5a4; }
+
     .dropdown-menu .menu-header {
       font-weight: bold; font-size: 18px; padding: 0 0 30px 60px; color: #1b254b; background: none;
     }
     .dropdown-content-flex {
-      display: flex; flex-direction: row; width: 100%; min-height: 320px;
+      display: flex;
+      align-items: stretch;
+      width: auto;
+      min-width: 180px;
+      transition: width 0.3s cubic-bezier(.4,0,.2,1);
     }
+
     .dropdown-categories {
       flex: 1.5; padding-left: 60px; padding-right: 40px;
+      min-width: 500px;
     }
     .dropdown-categories ul { list-style: none; padding: 0; margin: 0; }
     .dropdown-categories li {
@@ -48,35 +66,100 @@
     .dropdown-categories li.active {
       color: #1b254b; border-bottom: 2px solid #fd1144; opacity: 1; font-weight: bold;
     }
+
     .dropdown-content-wrapper {
-      flex: 4; display: flex; flex-direction: column;
-      justify-content: center; align-items: flex-end; position: relative; padding-right: 80px;
+      flex: 4;
+      display: none;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      position: relative;
+      padding-right: 80px;
+      min-width: 220px;
+      max-width: 95vw;
+      box-sizing: border-box;
+      overflow-x: hidden;
     }
+    .dropdown-content-wrapper.show {
+      display: flex;
+    }
+
     .dropdown-items {
-      display: grid; grid-template-columns: repeat(2, 260px);
-      gap: 20px 32px; align-items: start; margin-bottom: 0; margin-top: 0; width: 600px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(140px, 260px));
+      gap: 20px 32px;
+      align-items: start;
+      justify-content: flex-start;
+      margin-bottom: 0;
+      margin-top: 0;
+      width: 100%;
+      max-width: 600px;
+      box-sizing: border-box;
+      overflow-x: hidden;
     }
     .dropdown-tile {
-      background: #fff; border-radius: 12px; color: #1b254b;
-      font-size: 1.1rem; padding: 18px 20px; font-weight: 500;
-      box-shadow: 0 2px 8px rgba(54,79,199,0.06); border: 1px solid #e5e5e5;
+      background: #fff;
+      border-radius: 12px;
+      color: #1b254b;
+      font-size: 1.1rem;
+      padding: 18px 20px;
+      font-weight: 500;
+      box-shadow: 0 2px 8px rgba(54,79,199,0.06);
+      border: 1px solid #e5e5e5;
+      min-width: 0;
+      word-break: break-word;
+      box-sizing: border-box;
     }
-    .explore-btn {
-      position: absolute; top: 0; right: 0; background: #fff; color: #fd1144;
-      padding: 14px 32px; border-radius: 24px; font-size: 1.05rem; font-weight: bold;
-      text-decoration: none; border: none; display: flex; align-items: center;
-      margin-top: 0; box-shadow: 0 2px 8px rgba(54,79,199,0.06); transition: background 0.2s;
-    }
-    .explore-btn i { margin-left: 12px; font-size: 1.2rem; }
-    .explore-btn:hover { background: #fd1144; color: #fff; }
-    @media (max-width: 1200px) {
-      .dropdown-menu { min-width: 95vw; padding: 24px 0; }
-      .dropdown-content-wrapper { padding-right: 16px; }
-      .dropdown-items { width: 100%; }
-    }
+
+    /* Responsive TABLETTE */
     @media (max-width: 900px) {
-      .dropdown-content-flex { flex-direction: column; }
-      .dropdown-content-wrapper { align-items: flex-start; }
+      .dropdown-content-flex {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .dropdown-content-wrapper {
+        padding-right: 16px;
+        max-width: 99vw;
+        min-width: 0;
+      }
+      .dropdown-items {
+        grid-template-columns: 1fr;
+        max-width: 380px;
+        width: 100%;
+      }
+    }
+
+    /* Responsive MOBILE */
+    @media (max-width: 600px) {
+      .dropdown-menu {
+        left: 50%;
+        transform: translateX(-50%);
+        min-width: 90vw;
+        padding: 20px 0;
+        border-radius: 0 0 24px 24px;
+        max-height: 80vh;
+        overflow-y: auto;
+      }
+      .dropdown-categories {
+        padding-left: 20px;
+        padding-right: 8px;
+        min-width: 120px;
+        font-size: 1rem;
+      }
+      .dropdown-content-wrapper {
+        padding-right: 0;
+        max-width: 99vw;
+        min-width: 0;
+      }
+      .dropdown-items {
+        grid-template-columns: 1fr;
+        gap: 14px;
+        max-width: 99vw;
+      }
+      .dropdown-tile {
+        font-size: 0.97rem;
+        padding: 12px 8px;
+      }
     }
   </style>
 </head>
@@ -98,7 +181,7 @@
           <div class="dropdown-content-flex">
             <div class="dropdown-categories">
               <ul>
-                <li data-category="consumer" class="active">Consumer goods & retail</li>
+                <li data-category="consumer" >Consumer goods & retail</li>
                 <li data-category="finance">Financial services & insurance</li>
                 <li data-category="health">Health & wellness</li>
                 <li data-category="tech">Technology & telecommunications</li>
@@ -122,7 +205,7 @@
           <div class="dropdown-content-flex">
             <div class="dropdown-categories">
               <ul>
-                <li data-category="health" class="active">Health</li>
+                <li data-category="health" >Health</li>
                 <li data-category="tech">Technology</li>
                 <li data-category="finance">Finance</li>
                 <li data-category="transport">Mobility</li>
@@ -144,7 +227,7 @@
           <div class="dropdown-content-flex">
             <div class="dropdown-categories">
               <ul>
-                <li data-category="global" class="active">Pack Global : Management & Analysis & Predictive modeling & Visualization</li>
+                <li data-category="global" >Pack Global : Management & Analysis & Predictive modeling & Visualization</li>
                 <li data-category="map">Pack Management & Analysis & Predictive modeling</li>
                 <li data-category="mav">Pack Management & Analysis & Visualization</li>
                 <li data-category="mpv">Pack Management & Predictive modeling & Visualization</li>
@@ -178,7 +261,7 @@
           <div class="dropdown-content-flex">
             <div class="dropdown-categories">
               <ul>
-                <li data-category="blog" class="active">Blog</li>
+                <li data-category="blog" >Blog</li>
                 <li data-category="missions">Missions</li>
                 <li data-category="values">Values</li>
                 <li data-category="responsability">Corporate social responsibility</li>
@@ -336,66 +419,199 @@
           cats.forEach(c => c.classList.remove('active'));
           this.classList.add('active');
           render(this.dataset.category);
+
+          
         });
       });
       render(defaultCat);
     }
 
-    document.addEventListener("DOMContentLoaded", function () {
-      // Menu burger mobile
-      const menuToggle = document.getElementById("menu-toggle");
-      const navLinks = document.getElementById("nav-links");
-      menuToggle.addEventListener("click", () => {
-        navLinks.classList.toggle("open");
-      });
-
-      // Dropdown logic
-      document.querySelectorAll('.dropdown > a[data-dropdown]').forEach(link => {
-        link.addEventListener('click', function (e) {
+    document.addEventListener('DOMContentLoaded', function () {
+      // --- DATA ---
+      const menuData = {
+        sectors: {
+          consumer: [
+            "Supermarkets", "Department stores", "Fashion & apparel", "Cosmetics & beauty", "Electronics"
+          ],
+          finance: [
+            "Banking", "Insurance", "Fintech", "Wealth management"
+          ],
+          health: [
+            "Pharma", "Biotech", "Medtech", "Hospitals", "Health services"
+          ],
+          tech: [
+            "Telecommunications", "IT services", "Software", "Internet", "Electronics manufacturing"
+          ],
+          transport: [
+            "Automotive", "Rail", "Aerospace", "Urban transport"
+          ],
+          public_sec: [
+            "Government", "Non-profit organizations", "NGOs"
+          ],
+          industry: [
+            "Manufacturing", "Industrial equipment", "Construction", "Energy"
+          ]
+        },
+        expertise: {
+          health: [
+            "Innovative biotherapies", "Patient journey", "Rare diseases", "Digital therapeutics (DTx)",
+            "AI in health", "Personalized medicine", "Clinical trial digitalization", "HealthTech"
+          ],
+          tech: [
+            "Usage behavior analytics", "Service optimization", "Network performance", "Churn prediction", "Product-market fit"
+          ],
+          finance: [
+            "Risk & fraud analytics", "Client segmentation", "Credit scoring", "Regulatory compliance", "Fintech market intelligence"
+          ],
+          transport: [
+            "Mobility data insights", "Predictive maintenance", "Smart infrastructure", "Fleet analysis", "Demand forecasting"
+          ],
+          industry: [
+            "Smart factory analytics", "Performance monitoring", "Supply chain optimization", "Predictive quality control", "Energy efficiency"
+          ]
+        },
+        services: {
+          global: [
+            "Management", "Analysis", "Predictive modeling", "Visualization"
+          ],
+          map: [
+            "Management", "Analysis", "Predictive modeling"
+          ],
+          mav: [
+            "Management", "Analysis", "Visualization"
+          ],
+          mpv: [
+            "Management", "Predictive modeling", "Visualization"
+          ],
+          apv: [
+            "Analysis", "Predictive modeling", "Visualization"
+          ],
+          ma: [
+            "Management", "Analysis"
+          ],
+          mv: [
+            "Management", "Visualization"
+          ],
+          mp: [
+            "Management", "Predictive modeling"
+          ],
+          pv: [
+            "Predictive modeling", "Visualization"
+          ],
+          av: [
+            "Analysis", "Visualization"
+          ],
+          ap: [
+            "Analysis", "Predictive modeling"
+          ],
+          data_analysis: [
+            "Data exploration", "Data cleaning", "Data reporting"
+          ],
+          data_management: [
+            "Data governance", "Data warehousing"
+          ],
+          data_visualization: [
+            "Dashboards", "Reporting tools"
+          ],
+          market_research: [
+            "Market trends", "Competitor analysis"
+          ],
+          predictive_ai: [
+            "AI solutions", "Machine learning", "Forecasting"
+          ],
+          web_development: [
+            "Website", "Webapp", "API development"
+          ]
+        },
+        company: {
+          blog: [
+            "Latest news", "Expert articles", "Team stories"
+          ],
+          missions: [
+            "Our missions", "Client stories"
+          ],
+          values: [
+            "Transparency", "Expertise", "Diversity"
+          ],
+          responsability: [
+          ]
+        }
+      };
+    
+      // --- GESTION DE TOUS LES MENUS ---
+      document.querySelectorAll('.dropdown').forEach(dropdown => {
+        const toggle = dropdown.querySelector('a[data-dropdown]');
+        if (!toggle) return;
+        const menuName = toggle.dataset.dropdown;
+        const menu = document.getElementById('menu-' + menuName);
+        if (!menu) return;
+        const cats = menu.querySelectorAll('.dropdown-categories li');
+        const contentWrapper = menu.querySelector('.dropdown-content-wrapper');
+        const content = menu.querySelector('.dropdown-items');
+    
+        // Par défaut: menu masqué et colonne de droite masquée
+        menu.style.display = 'none';
+        if(contentWrapper) contentWrapper.classList.remove('show');
+        cats.forEach(c => c.classList.remove('active'));
+    
+        // Ouvre/ferme le menu au clic sur le bouton
+        toggle.addEventListener('click', function(e) {
           e.preventDefault();
-          const menuId = "menu-" + link.dataset.dropdown;
-          const menu = document.getElementById(menuId);
+          // Ferme les autres menus
           document.querySelectorAll('.dropdown-menu').forEach(m => {
             if (m !== menu) m.style.display = 'none';
+            const wrap = m.querySelector('.dropdown-content-wrapper');
+            if (wrap) wrap.classList.remove('show');
+            const cts = m.querySelectorAll('.dropdown-categories li');
+            cts.forEach(c => c.classList.remove('active'));
           });
-          menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+          // Toggle affichage de CE menu
+          if (menu.style.display === 'block') {
+            menu.style.display = 'none';
+            if(contentWrapper) contentWrapper.classList.remove('show');
+            cats.forEach(c => c.classList.remove('active'));
+          } else {
+            menu.style.display = 'block';
+            if(contentWrapper) contentWrapper.classList.remove('show');
+            cats.forEach(c => c.classList.remove('active'));
+          }
+        });
+    
+        // Affiche la zone de droite et contenu seulement après clic
+        cats.forEach(li => {
+          li.addEventListener('click', function () {
+            cats.forEach(c => c.classList.remove('active'));
+            this.classList.add('active');
+            if(contentWrapper) contentWrapper.classList.add('show');
+            render(menuName, this.dataset.category, content);
+          });
         });
       });
-      document.addEventListener('click', function (e) {
+    
+      // Fonction générique pour afficher le contenu d'une catégorie
+      function render(menuName, cat, contentElt) {
+        const data = menuData[menuName] || {};
+        const items = data[cat] || [];
+        contentElt.innerHTML = items.map(item =>
+          `<div class="dropdown-tile">${item}</div>`
+        ).join('');
+      }
+    
+      // Ferme tout si on clique hors menu
+      document.addEventListener('click', function(e) {
         if (!e.target.closest('.dropdown')) {
-          document.querySelectorAll('.dropdown-menu').forEach(m => m.style.display = 'none');
+          document.querySelectorAll('.dropdown-menu').forEach(m => {
+            m.style.display = 'none';
+            const wrap = m.querySelector('.dropdown-content-wrapper');
+            if (wrap) wrap.classList.remove('show');
+            const cats = m.querySelectorAll('.dropdown-categories li');
+            cats.forEach(c => c.classList.remove('active'));
+          });
         }
       });
-
-      // Apply to each dropdown
-      setupDropdownMenu('menu-sectors', sectorsData, 'consumer');
-      setupDropdownMenu('menu-expertise', expertiseData, 'health');
-      setupDropdownMenu('menu-services', servicesData, 'global');
-      setupDropdownMenu('menu-company', companyData, 'blog');
-
-      // Close menu mobile on link click
-      document.querySelectorAll('.nav-links a').forEach(link => {
-        link.addEventListener('click', () => {
-          if (window.innerWidth <= 768) navLinks.classList.remove('open');
-        });
-      });
-      // Langue (pour la forme)
-      const langBtn = document.getElementById("langToggle");
-      const langDropdown = document.getElementById("langDropdown");
-      langBtn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        langDropdown.style.display = langDropdown.style.display === "block" ? "none" : "block";
-      });
-      document.querySelectorAll("#langDropdown li").forEach(li => {
-        li.addEventListener("click", () => {
-          langBtn.textContent = `${li.dataset.lang.toUpperCase()} ▾`;
-          langDropdown.style.display = "none";
-        });
-      });
-      document.addEventListener("click", (e) => {
-        if (!e.target.closest('.lang-select')) langDropdown.style.display = "none";
-      });
     });
+    
+    
   </script>
 </body>
 </html>
