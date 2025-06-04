@@ -15,8 +15,14 @@
     Discuter avec Pape:
         Différencier les contenus de Services et d'expertise en s'inspirerant d'Alcimed et d'Artefact.
 
-Etapes Suivantes :
+14 Mai & 28 Mai :
     s'inspirer du site d'Alcimed pour structurer expertise. Améliorer le site en s'inspirant d'Artefact aussi.
     Décrire chaque secteur et définir comment les accompagner
     modifier services pour en faire un menu déroulant avec les packages et offres séparées
         Dans chaque package nous allons ajouté le un paragraphe sur le lien entre les offres qui le constituent.
+
+4 Juin :
+    Front du site, format tablette et téléphone à Améliorer
+
+Prochaines étapes:
+    Corriger le menu des langues, taille des items dans les submenus et disposition des items dans services (s'inpirer des submenus pour faire 2 colonnes)
