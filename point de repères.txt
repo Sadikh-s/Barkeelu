@@ -24,5 +24,9 @@
 4 Juin :
     Front du site, format tablette et téléphone à Améliorer
 
+11 Juin :
+taille des items dans les submenus et disposition des items dans services (s'inpirer des submenus pour faire 2 colonnes)
+
 Prochaines étapes:
-    Corriger le menu des langues, taille des items dans les submenus et disposition des items dans services (s'inpirer des submenus pour faire 2 colonnes)
+    Continuer la disposition des items 
+    Corriger le menu des langues
