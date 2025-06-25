@@ -25,8 +25,14 @@
     Front du site, format tablette et téléphone à Améliorer
 
 11 Juin :
-taille des items dans les submenus et disposition des items dans services (s'inpirer des submenus pour faire 2 colonnes)
+    taille des items dans les submenus et disposition des items dans services (s'inpirer des submenus pour faire 2 colonnes)
+
+18 Juin & 25 Juin: 
+    Continuer la disposition des items
+    Rediscuter de la structure du site et entamer les autres pages
 
 Prochaines étapes:
-    Continuer la disposition des items 
+    Enlever "Explore" dans les services uniques
+    Améliorer la postion du "détail" des <ul>
+    Générer des fichiers "html" grace au fichier "code.ipynb" et ajouter dans chaque fichier le contenu adapté
     Corriger le menu des langues
