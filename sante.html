@@ -1,164 +1,428 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Santé - Barkeelu</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Barkeelu</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #e7eaf3 0%, #c4d5e9 40%, #6e97c7 100%);
+    }
+    
+    nav.navbar {
+      display: flex; justify-content: space-between; align-items: center;
+      background: #fff; padding: 15px 20px; flex-wrap: wrap; position: relative;
+    }
+    .logo { display: flex; align-items: center; }
+    .logo img { height: 40px; margin-right: 10px; }
+    .logo-text { font-size: 12px; color: #b3082c; font-weight: bold; }
+    .menu-toggle { display: none; font-size: 1.5rem; cursor: pointer; }
+    .nav-links { display: flex; align-items: center; list-style: none; flex-wrap: wrap; }
+    .nav-links li { margin: 0 40px; position: relative; }
+    .nav-links a { text-decoration: none; color: #001f4d; font-weight: 600; padding: 8px; display: block; }
+
+    .dropdown-menu {
+      display: none; position: absolute; top: 100%; left: 50%;
+      min-width: 500px; box-shadow: 0 8px 32px rgba(54, 79, 199, 0.08);
+      border-radius: 0 0 30px 30px; z-index: 1000; padding: 40px 20px;
+      transition: width 0.3s cubic-bezier(.4,0,.2,1), min-width 0.3s cubic-bezier(.4,0,.2,1);
+      min-height: 55vh;
+      max-height: 60vh;
+      overflow-y: auto;
+    }
+
+    .dropdown-menu.services ul {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0; 
+    }
+
+    .dropdown-menu.sectors   { background: #fed700; transform: translateX(-20%);}
+    .dropdown-menu.expertise { background: #63bcfc; transform: translateX(-35%); min-height: 45vh;}
+    .dropdown-menu.services  { background: #58eab1; transform: translateX(-55%);}
+    .dropdown-menu.company   { background: #fba5a4; transform: translateX(-75%); min-height: 45vh;} 
+
+    .dropdown-menu .menu-header {
+      font-weight: bold; font-size: 18px; padding: 0 0 30px 60px; color: #1b254b; background: none;
+    }
+    .dropdown-content-flex {
+      display: flex;
+      align-items: stretch;
+      width: auto;
+      min-width: 180px;  /*largeur menu déroulant*/
+      transition: width 0.3s cubic-bezier(.4,0,.2,1);
+    }
+
+    .dropdown-categories {
+      flex: 1.5; padding-left: 60px; padding-right: 40px;
+      min-width: 500px; position: relative;
+    }
+    .dropdown-categories ul { list-style: none; padding: 0; margin: 0; }
+    .dropdown-categories li {
+      color: #1b254b; font-size: 1.15rem; margin-bottom: 20px;
+      cursor: pointer; opacity: 0.5; border-bottom: 2px solid transparent;
+      transition: color 0.2s, border 0.2s, opacity 0.2s;
+      font-weight: 500; padding-bottom: 4px;
+    }
+    .dropdown-categories li.active {
+      color: #1b254b; border-bottom: 2px solid #fd1144; opacity: 1; font-weight: bold;
+    }
+
+    .dropdown-content-wrapper {
+      flex: 4;
+      display: none;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      position: relative;
+      padding-right: 80px;
+      min-width: 220px;
+      max-width: 95vw;
+      box-sizing: border-box;
+      overflow-x: hidden;
+    }
+    .dropdown-content-wrapper.show {
+      display: flex;
+    }
+
+    .lang-select {
+      position: relative;
+      margin-left: 10px;
+    }
+
+    .lang-btn {
+      background: none;
+      border: none;
+      color: #001f4d;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+
+    .lang-dropdown {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: linear-gradient(to bottom, #555, #222);
+      border-radius: 10px;
+      list-style: none;
+      padding: 5px 0;
+      display: none;
+      z-index: 999;
+      min-width: 60px;
+    }
+
+    .lang-dropdown li {
+      padding: 8px 15px;
+      color: white;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .lang-dropdown li:hover {
+      background-color: rgba(255,255,255,0.1);
+    }
+
+    .dropdown-items {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(180px, 340px));
+      gap: 24px 40px;
+      align-items: start;
+      justify-content: flex-start;
+      margin-bottom: 0;
+      margin-top: 0;
+      width: 100%;
+      max-width: 600px;
+      box-sizing: border-box;
+      overflow-x: hidden;
+    }
+    .dropdown-tile {
+      background: white;
+      width: 180px;
+      height: 80px;
+      gap : 28px 56px;
+      border-radius: 12px;
+      color: #1b254b;
+      font-size: 1.1rem;
+      padding: 10px 18px;
+      font-weight: 500;
+      box-shadow: 0 2px 8px rgba(54,79,199,0.06);
+      border: 1px solid #e5e5e5;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    } 
+
+    /* Responsive TABLETTE */
+    @media (max-width: 900px) {
+      .dropdown-content-flex {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .dropdown-content-wrapper {
+        padding-right: 16px;
+        max-width: 99vw;
+        min-width: 0;
+      }
+      .dropdown-items {
+        grid-template-columns: 1fr;
+        max-width: 380px;
+        width: 100%;
+      }
+    }
+
+    /* Responsive MOBILE */
+    @media (max-width: 600px) {
+      .dropdown-menu {
+        left: 50%;
+        transform: translateX(-50%);
+        min-width: 90vw;
+        padding: 20px 0;
+        border-radius: 0 0 24px 24px;
+        max-height: 80vh;
+        overflow-y: auto;
+      }
+      .dropdown-categories {
+        padding-left: 20px;
+        padding-right: 8px;
+        min-width: 120px;
+        font-size: 1rem;
+      }
+      .dropdown-content-wrapper {
+        padding-right: 0;
+        max-width: 99vw;
+        min-width: 0;
+      }
+      .dropdown-items {
+        grid-template-columns: 1fr;
+        gap: 14px;
+        max-width: 99vw;
+      }
+      .dropdown-tile {
+        font-size: 0.97rem;
+        padding: 12px 8px;
+      }
+    }
+
+    .dropdown-categories {
+      position: relative;
+    }
+    
+
+    .dropdown-detail-align {
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* 2 colonnes égales */
+        gap: 16px 28px;                /* espace entre les cases */
+        /* Le reste de ton style (déjà inclus) */
+        position: absolute;
+        left: 100%;
+        min-width: 340px;
+        max-width: 520px;
+        /* background: #fff; */
+        /* box-shadow: 0 2px 14px rgba(54,79,199,0.08); */
+        border-radius: 14px;
+        /* padding: 28px 32px; */
+        z-index: 12;
+        display: none;
         }
-        /* ---- NAVIGATION ---- */
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: white;
-            padding: 15px 30px;
-            box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+        .dropdown-detail-align.show {
+        display: grid;
         }
-        .nav-links {
-            display: flex;
-            align-items: center;
-            list-style: none;
-        }
-        .nav-links li {
-            margin: 0 15px;
-            position: relative;
-        }
-        .nav-links a {
-            text-decoration: none;
-            color: #001f4d;
-            font-weight: 600;
-        }
-        .dropdown-menu {
-            display: none;
-            position: absolute;
-            background: white;
-            list-style: none;
-            padding: 10px;
-            box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
-        }
-        .dropdown:hover .dropdown-menu {
-            display: block;
-        }
-        .search-icon {
-            background: #f8f8f8;
-            border-radius: 50%;
-            padding: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .search-icon i {
-            color: #b3082c;
-        }
-        .contact-btn {
-            background-color: #ff0033;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 30px;
-            font-weight: bold;
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-        }
-        .contact-btn i {
-            margin-left: 5px;
-        }
-        .lang {
-            margin-left: 20px;
-        }
-        /* ---- FIL D'ARIANE ---- */
-        .breadcrumb {
-            padding: 15px 30px;
-            font-size: 14px;
-            color: #666;
-        }
-        .breadcrumb a {
-            text-decoration: none;
-            color: #001f4d;
-            font-weight: bold;
-        }
-        /* ---- HEADER PAGE SANTÉ ---- */
-        .header-section {
-            background: linear-gradient(to right, #6d41ad 50%, transparent 50%), url('drone.jpg') no-repeat center/cover;
-            color: white;
-            padding: 60px 30px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        .header-section .title {
-            font-size: 40px;
-            font-weight: bold;
-        }
-        .logo-circle {
-            background-color: #ff0033;
-            padding: 20px;
-            border-radius: 50%;
-            font-size: 20px;
-            font-weight: bold;
-        }
-    </style>
+
+   /* ---- FIL D'ARIANE ---- */
+.breadcrumb {
+    padding: 15px 30px;
+    font-size: 14px;
+    color: #666;
+    background-color: #f9f9f9;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.breadcrumb a {
+    text-decoration: none;
+    color: #004080;
+    font-weight: 500;
+    margin: 0 5px;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+.breadcrumb span.separator {
+    color: #999;
+    margin: 0 5px;
+}
+
+/* ---- HEADER PAGE SANTÉ ---- */
+.header-section {
+    background: linear-gradient(285deg, #e7eaf3 0%, #c4d5e9 40%, #6e97c7 100%);
+    height: 30px;
+    color: black;
+    padding: 60px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header-section .title {
+    font-size: 42px;
+    font-weight: bold;
+    line-height: 1.2;
+    max-width: 60%;
+}
+
+.logo-circle {
+    background-color: lightblue;
+    color: black;
+    padding: 20px 28px;
+    border-radius: 50%;
+    font-size: 22px;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+  </style>
 </head>
 <body>
-
-<!-- Barre de Navigation -->
-<nav class="navbar">
+  <nav class="navbar">
     <div class="logo">
-        <a href="index.html"><img src="logo.png" alt="Barkeelu"></a>
+      <img src="logo.png" alt="Barkeelu" />
+      <div class="logo-text">EXPLORE AND DEVELOP<br>UNKNOWN LANDS</div>
     </div>
-    <ul class="nav-links">
-        <li class="dropdown">
-            <a href="secteurs.html">Secteurs ▼</a>
-            <ul class="dropdown-menu">
-                <li><a href="sante.html">Santé</a></li>
-                <li><a href="biotech.html">Biotech</a></li>
-                <li><a href="aeronautique.html">Aéronautique Spatial Défense</a></li>
-                <li><a href="energie.html">Énergie & Environnement</a></li>
-                <li><a href="agroalimentaire.html">Agroalimentaire</a></li>
-                <li><a href="chimie.html">Chimie & Matériaux</a></li>
-                <li><a href="public_sec.html">Public sector & non-profit organizations</a></li>
-                <li><a href="industry.html">Industry</a></li>
-            </ul>
-        </li>
-        <li class="dropdown">
-            <a href="missions.html">Missions ▼</a>
-            <ul class="dropdown-menu">
-                <li><a href="marketing.html">Marketing Stratégique</a></li>
-                <li><a href="clients.html">Clients & Patients</a></li>
-                <li><a href="rd.html">R&D</a></li>
-                <li><a href="strategie.html">Stratégie Commerciale</a></li>
-            </ul>
-        </li>
-        <li class="dropdown">
-            <a href="expertises.html">Expertises ▼</a>
-            <ul class="dropdown-menu">
-                <li><a href="innovation.html">Innovation</a></li>
-                <li><a href="partenaires.html">Nouveaux Partenaires</a></li>
-                <li><a href="strategie.html">Stratégie</a></li>
-            </ul>
-        </li>
-        <li><a href="notre-aventure.html">Notre aventure</a></li>
-        <li><a href="rejoindre.html">Envie d’embarquer ?</a></li>
-        <li><a href="journal.html">Journal de Bord</a></li>
+    <div class="menu-toggle" id="menu-toggle">
+      <i class="fas fa-bars"></i>
+    </div>
+    <ul class="nav-links" id="nav-links">
+      <!-- Sectors -->
+      <li class="dropdown">
+        <a href="#" data-dropdown="sectors" aria-haspopup="true" aria-expanded="false">Sectors ▼</a>
+        <div class="dropdown-menu sectors" id="menu-sectors">
+          <div class="menu-header">Discover the industries we serve</div>
+          <div class="dropdown-content-flex">
+            <div class="dropdown-categories">
+              <ul>
+                <li data-category="consumer" >Consumer goods & retail</li>
+                <li data-category="finance">Financial services & insurance</li>
+                <li data-category="health">Health & wellness</li>
+                <li data-category="tech">Technology & telecommunications</li>
+                <li data-category="transport">Transportation & automotive</li>
+                <li data-category="public_sec">Public sector & non-profit organizations</li>
+                <li data-category="industry">Industry</li>
+              </ul>
+              <div class="dropdown-detail-align"></div>
+            </div>
+            <div class="dropdown-content-wrapper">
+              <div class="dropdown-items" id="sectors-content"></div>
+              <!-- <a href="#" class="explore-btn">Explore <i class="fas fa-arrow-right"></i></a> -->
+            </div>
+          </div>
+        </div>
+      </li>
+      <!-- Expertise -->
+      <li class="dropdown" id="expertiseDropdown">
+        <a href="#" data-dropdown="expertise" id="expertiseToggle" aria-haspopup="true" aria-expanded="false">Expertise ▼</a>
+        <div class="dropdown-menu expertise" id="menu-expertise">
+          <div class="menu-header">Our areas of technical and strategic expertise</div>
+          <div class="dropdown-content-flex">
+            <div class="dropdown-categories">
+              <ul>
+                <li data-category="health" >Health</li>
+                <li data-category="tech">Technology</li>
+                <li data-category="finance">Finance</li>
+                <li data-category="transport">Mobility</li>
+                <li data-category="industry">Industry</li>
+              </ul>
+              <div class="dropdown-detail-align"></div>
+            </div>
+            <div class="dropdown-content-wrapper">
+              <div class="dropdown-items" id="expertise-content"></div>
+              <!-- <a href="#" class="explore-btn">Explore <i class="fas fa-arrow-right"></i></a> -->
+            </div>
+          </div>
+        </div>
+      </li>
+      <!-- Services -->
+      <li class="dropdown">
+        <a href="#" data-dropdown="services" aria-haspopup="true" aria-expanded="false">Services ▼</a>
+        <div class="dropdown-menu services" id="menu-services">
+          <div class="menu-header">Customized service packages to meet your needs</div>
+          <div class="dropdown-content-flex">
+            <div class="dropdown-categories">
+              <ul>
+                <li data-category="global" >Pack Global : Management & Analysis & Predictive modeling & Visualization</li>
+                <li data-category="map">Pack Management & Analysis & Predictive modeling</li>
+                <li data-category="mav">Pack Management & Analysis & Visualization</li>
+                <li data-category="mpv">Pack Management & Predictive modeling & Visualization</li>
+                <li data-category="apv">Pack Analysis & Predictive modeling & Visualization</li>
+                <li data-category="ma">Pack Management & Analysis</li>
+                <li data-category="mv">Pack Management Visualization</li>
+                <li data-category="mp">Pack Management Predictive modeling</li>
+                <li data-category="pv">Pack Predictive modeling & Visualization</li>
+                <li data-category="av">Pack Analysis & Visualization</li>
+                <li data-category="ap">Pack Analysis & Predictive modeling</li>
+                <li data-category="data_analysis">Data analysis</li>
+                <li data-category="data_management">Data management</li>
+                <li data-category="data_visualization">Data visualization</li>
+                <li data-category="market_research">Market research</li>
+                <li data-category="predictive_ai">Predictive modeling & AI</li>
+                <li data-category="web_development">Web development</li>
+              </ul>
+              <div class="dropdown-detail-align"></div>
+            </div>
+            <div class="dropdown-content-wrapper">
+              <div class="dropdown-items" id="services-content"></div>
+              <!-- <a href="#" class="explore-btn">Explore <i class="fas fa-arrow-right"></i></a> -->
+            </div>
+          </div>
+        </div>
+      </li>
+      <!-- Company -->
+      <li class="dropdown">
+        <a href="#" data-dropdown="company" aria-haspopup="true" aria-expanded="false">Company ▼</a>
+        <div class="dropdown-menu company" id="menu-company">
+          <div class="menu-header">Learn more about who we are and what drives us</div>
+          <div class="dropdown-content-flex">
+            <div class="dropdown-categories">
+              <ul>
+                <li data-category="blog" >Blog</li>
+                <li data-category="missions">Missions</li>
+                <li data-category="values">Values</li>
+                <li href = "_to_delete.html">Corporate social responsibility</li>
+              </ul>
+              <div class="dropdown-detail-align"></div>
+            </div>
+            <div class="dropdown-content-wrapper">
+              <div class="dropdown-items" id="company-content"></div>
+              <!-- <a href="#" class="explore-btn">Explore <i class="fas fa-arrow-right"></i></a> -->
+            </div>
+          </div>
+        </div>
+      </li>
+      <!-- Logbook -->
+      <li><a href="logbook.html" data-i18n="logbook">Logbook</a></li>
     </ul>
     <div class="search-icon">
-        <i class="fas fa-search"></i>
+      <i class="fas fa-search"></i>
     </div>
-    <button class="contact-btn">
-        Nous contacter <i class="fas fa-arrow-up-right-from-square"></i>
+    <button class="contact-btn" data-i18n="contact">
+      Contact us <i class="fas fa-arrow-up-right-from-square"></i>
     </button>
-    <div class="lang">FR ▼</div>
-</nav>
+    <div class="lang-select">
+      <button class="lang-btn" id="langToggle">EN ▾</button>
+      <ul class="lang-dropdown" id="langDropdown">
+        <li data-lang="en">EN</li>
+        <li data-lang="fr">FR</li>
+        <li data-lang="es">ES</li>
+        <li data-lang="wo">WO</li>
+      </ul>
+    </div>
+  </nav>
 
-<!-- Fil d'Ariane -->
+  <!-- Fil d'Ariane -->
 <div class="breadcrumb">
     <a href="index.html">Accueil</a> > <a href="secteurs.html">Secteurs</a> > Santé
 </div>
@@ -168,6 +432,358 @@
     <div class="logo-circle">Barkeelu</div>
     <div class="title">Santé</div>
 </div>
+  <script>
+    // Data for each menu - Keep your labels!
+    const sectorsData = {
+      consumer: [
+        "Supermarkets", "Department stores", "Fashion & apparel", "Cosmetics & beauty", "Electronics"
+      ],
+      finance: [
+        "Banking", "Insurance", "Fintech", "Wealth management"
+      ],
+      health: [
+        "Pharma", "Biotech", "Medtech", "Hospitals", "Health services"
+      ],
+      tech: [
+        "Telecommunications", "IT services", "Software", "Internet", "Electronics manufacturing"
+      ],
+      transport: [
+        "Automotive", "Rail", "Aerospace", "Urban transport"
+      ],
+      public_sec: [
+        "Government", "Non-profit organizations", "NGOs"
+      ],
+      industry: [
+        "Manufacturing", "Industrial equipment", "Construction", "Energy"
+      ]
+    };
+    const expertiseData = {
+      health: [
+        "Innovative biotherapies", "Patient journey", "Rare diseases", "Digital therapeutics (DTx)",
+        "AI in health", "Personalized medicine", "Clinical trial digitalization", "HealthTech"
+      ],
+      tech: [
+        "Usage behavior analytics", "Service optimization", "Network performance", "Churn prediction", "Product-market fit"
+      ],
+      finance: [
+        "Risk & fraud analytics", "Client segmentation", "Credit scoring", "Regulatory compliance", "Fintech market intelligence"
+      ],
+      transport: [
+        "Mobility data insights", "Predictive maintenance", "Smart infrastructure", "Fleet analysis", "Demand forecasting"
+      ],
+      industry: [
+        "Smart factory analytics", "Performance monitoring", "Supply chain optimization", "Predictive quality control", "Energy efficiency"
+      ]
+    };
+    const servicesData = {
+      global: ["Pack", 
+        "Management", "Analysis", "Predictive modeling", "Visualization"
+      ],
+      map: ["Pack", 
+        "Management", "Analysis", "Predictive modeling"
+      ],
+      mav: ["Pack", 
+        "Management", "Analysis", "Visualization"
+      ],
+      mpv: ["Pack", 
+        "Management", "Predictive modeling", "Visualization"
+      ],
+      apv: ["Pack", 
+        "Analysis", "Predictive modeling", "Visualization"
+      ],
+      ma: ["Pack", 
+        "Management", "Analysis"
+      ],
+      mv: ["Pack", 
+        "Management", "Visualization"
+      ],
+      mp: ["Pack", 
+        "Management", "Predictive modeling"
+      ],
+      pv: ["Pack", 
+        "Predictive modeling", "Visualization"
+      ],
+      av: ["Pack", 
+        "Analysis", "Visualization"
+      ],
+      ap: ["Pack", 
+        "Analysis", "Predictive modeling"
+      ]
+    };
+    const companyData = {
+      blog: [
+        "Latest news", "Expert articles", "Team stories"
+      ],
+      missions: [
+        "Our missions", "Client stories"
+      ],
+      values: [
+        "Transparency", "Expertise", "Diversity"
+      ]
+    };
 
+    // Renders for dropdowns
+    function setupDropdownMenu(menuId, data, defaultCat) {
+      const menu = document.getElementById(menuId);
+      const cats = menu.querySelectorAll('.dropdown-categories li');
+      const content = menu.querySelector('.dropdown-items');
+      function render(cat) {
+        const items = data[cat] || [];
+        content.innerHTML = items.map(item =>
+          `<div class="dropdown-tile">${item}</div>`
+        ).join('');
+      }
+      cats.forEach(li => {
+        li.addEventListener('click', function () {
+          cats.forEach(c => c.classList.remove('active'));
+          this.classList.add('active');
+          render(this.dataset.category);
+
+          
+        });
+      });
+      render(defaultCat);
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      // --- GESTION DE TOUS LES MENUS ---
+      document.querySelectorAll('.dropdown').forEach(dropdown => {
+        const toggle = dropdown.querySelector('a[data-dropdown]');
+        if (!toggle) return;
+        const menuName = toggle.dataset.dropdown;
+        const menu = document.getElementById('menu-' + menuName);
+        if (!menu) return;
+        const cats = menu.querySelectorAll('.dropdown-categories li');
+        const contentWrapper = menu.querySelector('.dropdown-content-wrapper');
+        const content = menu.querySelector('.dropdown-items');
+    
+        // Par défaut: menu masqué et colonne de droite masquée
+        menu.style.display = 'none';
+        if(contentWrapper) contentWrapper.classList.remove('show');
+        cats.forEach(c => c.classList.remove('active'));
+    
+        // Ouvre/ferme le menu au clic sur le bouton
+        toggle.addEventListener('click', function(e) {
+          e.preventDefault();
+          // Ferme les autres menus
+          document.querySelectorAll('.dropdown-menu').forEach(m => {
+            if (m !== menu) m.style.display = 'none';
+            const wrap = m.querySelector('.dropdown-content-wrapper');
+            if (wrap) wrap.classList.remove('show');
+            const cts = m.querySelectorAll('.dropdown-categories li');
+            cts.forEach(c => c.classList.remove('active'));
+          });
+          // Toggle affichage de CE menu
+          if (menu.style.display === 'block') {
+            menu.style.display = 'none';
+            if(contentWrapper) contentWrapper.classList.remove('show');
+            cats.forEach(c => c.classList.remove('active'));
+          } else {
+            menu.style.display = 'block';
+            if(contentWrapper) contentWrapper.classList.remove('show');
+            cats.forEach(c => c.classList.remove('active'));
+          }
+        });
+    
+        // Affiche la zone de droite et contenu seulement après clic
+        cats.forEach(li => {
+          li.addEventListener('click', function () {
+            cats.forEach(c => c.classList.remove('active'));
+            this.classList.add('active');
+            if(contentWrapper) contentWrapper.classList.add('show');
+            // render(menuName, this.dataset.category, content);
+          });
+        });
+      });
+    
+      // Fonction générique pour afficher le contenu d'une catégorie
+      function render(menuName, cat, contentElt) {
+        const data = menuData[menuName] || {};
+        const items = data[cat] || [];
+        contentElt.innerHTML = items.map(item =>
+          `<div class="dropdown-tile">${item}</div>`
+        ).join('');
+      }
+    
+      // Ferme tout si on clique hors menu
+      document.addEventListener('click', function(e) {
+        if (!e.target.closest('.dropdown')) {
+          document.querySelectorAll('.dropdown-menu').forEach(m => {
+            m.style.display = 'none';
+            const wrap = m.querySelector('.dropdown-content-wrapper');
+            if (wrap) wrap.classList.remove('show');
+            const cats = m.querySelectorAll('.dropdown-categories li');
+            cats.forEach(c => c.classList.remove('active'));
+          });
+        }
+      });
+    });
+
+document.querySelectorAll('.dropdown-menu.services').forEach(menu => {
+  const categories = menu.querySelector('.dropdown-categories');
+  if (!categories) return;
+  const detail = categories.querySelector('.dropdown-detail-align');
+  const items = categories.querySelectorAll('li');
+  if (!detail) return;
+
+  // Récupère les données (utilise servicesData déjà défini dans ton script)
+  const data = {
+    global: ["Management", "Analysis", "Predictive modeling", "Visualization"],
+    map: ["Management", "Analysis", "Predictive modeling"],
+    mav: ["Management", "Analysis", "Visualization"],
+    mpv: ["Management", "Predictive modeling", "Visualization"],
+    apv: ["Analysis", "Predictive modeling", "Visualization"],
+    ma: ["Management", "Analysis"],
+    mv: ["Management", "Visualization"],
+    mp: ["Management", "Predictive modeling"],
+    pv: ["Predictive modeling", "Visualization"],
+    av: ["Analysis", "Visualization"],
+    ap: ["Analysis", "Predictive modeling"],
+    data_analysis: ["Data exploration", "Data cleaning", "Data reporting"],
+    data_management: ["Data governance", "Data warehousing"],
+    data_visualization: ["Dashboards", "Reporting tools"],
+    market_research: ["Market trends", "Competitor analysis"],
+    predictive_ai: ["AI solutions", "Machine learning", "Forecasting"],
+    web_development: ["Website", "Webapp", "API development"]
+  };
+
+  items.forEach(li => {
+    li.addEventListener('click', function(e) {
+  // Trouve la catégorie
+  const cat = li.dataset.category;
+  const itemsList = data[cat] || [];
+
+  // Calcule l'alignement vertical
+  const offsetTop = li.offsetTop - categories.querySelector('ul').offsetTop;
+
+  // Génére le HTML du détail : chaque élément dans sa box
+  detail.innerHTML = itemsList.map(
+    x => `<div class="dropdown-tile">${x}</div>`
+  ).join('');
+
+  detail.style.top = offsetTop + "px";
+  detail.classList.add('show');
+  // Highlight du <li>
+  items.forEach(l => {
+    if (l !== li) l.classList.remove('active');
+  });
+});
+  });
+
+  // Facultatif : masquer le détail quand on quitte le menu
+  menu.addEventListener('mouseleave', function(){
+    detail.classList.remove('show');
+  });
+});
+const allMenus = [
+  { selector: '.dropdown-menu.services', data: servicesData },
+  { selector: '.dropdown-menu.sectors', data: sectorsData },
+  { selector: '.dropdown-menu.expertise', data: expertiseData },
+  { selector: '.dropdown-menu.company', data: companyData }
+];
+
+allMenus.forEach(({selector, data}) => {
+  document.querySelectorAll(selector).forEach(menu => {
+    const categories = menu.querySelector('.dropdown-categories');
+    if (!categories) return;
+    const detail = categories.querySelector('.dropdown-detail-align');
+    const items = categories.querySelectorAll('li');
+    if (!detail) return;
+
+    items.forEach(li => {
+      li.addEventListener('click', function(e) {
+        const cat = li.dataset.category;
+        const itemsList = data[cat] || [];
+
+        // Génère l'URL pour explore
+        const linkHref = `/explore/${cat}`;
+
+        // Génère le HTML du détail
+        detail.innerHTML = `
+          <a class="explore-btn" href="${linkHref}" style="display:block; margin-bottom:20px; font-weight:bold; color:#364fc7; text-align:left;">
+            Explore <i class="fas fa-arrow-right"></i>
+          </a>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px 28px;">
+            ${itemsList.map(x => `<div class="dropdown-tile">${x}</div>`).join('')}
+          </div>
+        `;
+
+        // Aligne le détail verticalement avec le li cliqué
+        const ul = categories.querySelector('ul');
+        const offsetTop = li.offsetTop - ul.offsetTop;
+        const detailHeight = detail.offsetHeight;
+        const ulHeight = ul.offsetHeight;
+
+        // Position de base
+        let top = offsetTop;
+
+        // Si le détail dépasse en bas, on le remonte un peu
+        if (offsetTop + detailHeight > ulHeight) {
+          top = offsetTop - (offsetTop + detailHeight - ulHeight) - 10; // 10px de marge de confort
+          top = Math.max(top, 0); // On évite de le placer au-dessus du haut du conteneur
+        }
+
+        detail.style.top = top + "px";
+        detail.classList.add('show');
+
+        items.forEach(l => {
+          if (l !== li) l.classList.remove('active');
+        });
+      });
+    });
+
+    // Masque le détail quand on quitte le menu
+    menu.addEventListener('mouseleave', function(){
+      detail.classList.remove('show');
+    });
+  });
+});
+
+function setLanguage(lang) {
+localStorage.setItem("selectedLang", lang);
+//if (lang === "en") return; // Pas besoin de charger de fichier 
+
+fetch(`translations/${lang}.json`)
+  .then(res => res.json())
+  .then(translations => {
+    document.querySelectorAll("[data-i18n]").forEach(el => {
+      const key = el.getAttribute("data-i18n");
+      if (translations[key]) {
+        el.innerHTML = translations[key];
+      }
+    });
+  })
+  .catch(err => console.error(`Erreur de traduction (${lang})`, err));
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+const savedLang = localStorage.getItem("selectedLang") || "en";
+setLanguage(savedLang);
+const langBtn = document.getElementById("langToggle");
+if (langBtn) langBtn.textContent = `${savedLang.toUpperCase()} ▾`;
+});
+
+const langBtn = document.getElementById("langToggle");
+const langDropdown = document.getElementById("langDropdown");
+
+langBtn.addEventListener("click", () => {
+langDropdown.style.display = langDropdown.style.display === "block" ? "none" : "block";
+});
+
+document.addEventListener("click", e => {
+if (!e.target.closest(".lang-select")) {
+  langDropdown.style.display = "none";
+}
+});
+
+document.querySelectorAll(".lang-dropdown li").forEach(item => {
+item.addEventListener("click", () => {
+  const lang = item.getAttribute("data-lang");
+  setLanguage(lang);
+  langBtn.textContent = `${lang.toUpperCase()} ▾`;
+  langDropdown.style.display = "none";
+});
+});
+  </script>
 </body>
 </html>

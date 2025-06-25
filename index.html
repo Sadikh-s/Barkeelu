@@ -27,9 +27,9 @@
     .dropdown-menu {
       display: none; position: absolute; top: 100%; left: 50%;
       min-width: 500px; box-shadow: 0 8px 32px rgba(54, 79, 199, 0.08);
-      border-radius: 0 0 30px 30px; z-index: 1000; padding: 40px 0;
+      border-radius: 0 0 30px 30px; z-index: 1000; padding: 40px 20px;
       transition: width 0.3s cubic-bezier(.4,0,.2,1), min-width 0.3s cubic-bezier(.4,0,.2,1);
-      min-height: 45vh;
+      min-height: 55vh;
       max-height: 60vh;
       overflow-y: auto;
     }
@@ -39,9 +39,9 @@
     }
 
     .dropdown-menu.sectors   { background: #fed700; transform: translateX(-20%);}
-    .dropdown-menu.expertise { background: #63bcfc; transform: translateX(-35%);}
+    .dropdown-menu.expertise { background: #63bcfc; transform: translateX(-35%); min-height: 45vh;}
     .dropdown-menu.services  { background: #58eab1; transform: translateX(-55%);}
-    .dropdown-menu.company   { background: #fba5a4; transform: translateX(-75%);}
+    .dropdown-menu.company   { background: #fba5a4; transform: translateX(-75%); min-height: 45vh;} 
 
     .dropdown-menu .menu-header {
       font-weight: bold; font-size: 18px; padding: 0 0 30px 60px; color: #1b254b; background: none;
@@ -139,7 +139,7 @@
     }
     .dropdown-tile {
       background: white;
-      width: 160px;
+      width: 180px;
       height: 80px;
       gap : 28px 56px;
       border-radius: 12px;
@@ -337,7 +337,7 @@
                 <li data-category="blog" >Blog</li>
                 <li data-category="missions">Missions</li>
                 <li data-category="values">Values</li>
-                <li data-category="responsability">Corporate social responsibility</li>
+                <li href = "_to_delete.html">Corporate social responsibility</li>
               </ul>
               <div class="dropdown-detail-align"></div>
             </div>
@@ -411,56 +411,38 @@
       ]
     };
     const servicesData = {
-      global: [
+      global: ["Pack", 
         "Management", "Analysis", "Predictive modeling", "Visualization"
       ],
-      map: [
+      map: ["Pack", 
         "Management", "Analysis", "Predictive modeling"
       ],
-      mav: [
+      mav: ["Pack", 
         "Management", "Analysis", "Visualization"
       ],
-      mpv: [
+      mpv: ["Pack", 
         "Management", "Predictive modeling", "Visualization"
       ],
-      apv: [
+      apv: ["Pack", 
         "Analysis", "Predictive modeling", "Visualization"
       ],
-      ma: [
+      ma: ["Pack", 
         "Management", "Analysis"
       ],
-      mv: [
+      mv: ["Pack", 
         "Management", "Visualization"
       ],
-      mp: [
+      mp: ["Pack", 
         "Management", "Predictive modeling"
       ],
-      pv: [
+      pv: ["Pack", 
         "Predictive modeling", "Visualization"
       ],
-      av: [
+      av: ["Pack", 
         "Analysis", "Visualization"
       ],
-      ap: [
+      ap: ["Pack", 
         "Analysis", "Predictive modeling"
-      ],
-      data_analysis: [
-        "Data exploration", "Data cleaning", "Data reporting"
-      ],
-      data_management: [
-        "Data governance", "Data warehousing"
-      ],
-      data_visualization: [
-        "Dashboards", "Reporting tools"
-      ],
-      market_research: [
-        "Market trends", "Competitor analysis"
-      ],
-      predictive_ai: [
-        "AI solutions", "Machine learning", "Forecasting"
-      ],
-      web_development: [
-        "Website", "Webapp", "API development"
       ]
     };
     const companyData = {
@@ -472,8 +454,6 @@
       ],
       values: [
         "Transparency", "Expertise", "Diversity"
-      ],
-      responsability: [
       ]
     };
 
@@ -501,117 +481,6 @@
     }
 
     document.addEventListener('DOMContentLoaded', function () {
-      // --- DATA ---
-      const menuData = {
-        sectors: {
-          consumer: [
-            "Supermarkets", "Department stores", "Fashion & apparel", "Cosmetics & beauty", "Electronics"
-          ],
-          finance: [
-            "Banking", "Insurance", "Fintech", "Wealth management"
-          ],
-          health: [
-            "Pharma", "Biotech", "Medtech", "Hospitals", "Health services"
-          ],
-          tech: [
-            "Telecommunications", "IT services", "Software", "Internet", "Electronics manufacturing"
-          ],
-          transport: [
-            "Automotive", "Rail", "Aerospace", "Urban transport"
-          ],
-          public_sec: [
-            "Government", "Non-profit organizations", "NGOs"
-          ],
-          industry: [
-            "Manufacturing", "Industrial equipment", "Construction", "Energy"
-          ]
-        },
-        expertise: {
-          health: [
-            "Innovative biotherapies", "Patient journey", "Rare diseases", "Digital therapeutics (DTx)",
-            "AI in health", "Personalized medicine", "Clinical trial digitalization", "HealthTech"
-          ],
-          tech: [
-            "Usage behavior analytics", "Service optimization", "Network performance", "Churn prediction", "Product-market fit"
-          ],
-          finance: [
-            "Risk & fraud analytics", "Client segmentation", "Credit scoring", "Regulatory compliance", "Fintech market intelligence"
-          ],
-          transport: [
-            "Mobility data insights", "Predictive maintenance", "Smart infrastructure", "Fleet analysis", "Demand forecasting"
-          ],
-          industry: [
-            "Smart factory analytics", "Performance monitoring", "Supply chain optimization", "Predictive quality control", "Energy efficiency"
-          ]
-        },
-        services: {
-          global: [
-            "Management", "Analysis", "Predictive modeling", "Visualization"
-          ],
-          map: [
-            "Management", "Analysis", "Predictive modeling"
-          ],
-          mav: [
-            "Management", "Analysis", "Visualization"
-          ],
-          mpv: [
-            "Management", "Predictive modeling", "Visualization"
-          ],
-          apv: [
-            "Analysis", "Predictive modeling", "Visualization"
-          ],
-          ma: [
-            "Management", "Analysis"
-          ],
-          mv: [
-            "Management", "Visualization"
-          ],
-          mp: [
-            "Management", "Predictive modeling"
-          ],
-          pv: [
-            "Predictive modeling", "Visualization"
-          ],
-          av: [
-            "Analysis", "Visualization"
-          ],
-          ap: [
-            "Analysis", "Predictive modeling"
-          ],
-          data_analysis: [
-            "Data exploration", "Data cleaning", "Data reporting"
-          ],
-          data_management: [
-            "Data governance", "Data warehousing"
-          ],
-          data_visualization: [
-            "Dashboards", "Reporting tools"
-          ],
-          market_research: [
-            "Market trends", "Competitor analysis"
-          ],
-          predictive_ai: [
-            "AI solutions", "Machine learning", "Forecasting"
-          ],
-          web_development: [
-            "Website", "Webapp", "API development"
-          ]
-        },
-        company: {
-          blog: [
-            "Latest news", "Expert articles", "Team stories"
-          ],
-          missions: [
-            "Our missions", "Client stories"
-          ],
-          values: [
-            "Transparency", "Expertise", "Diversity"
-          ],
-          responsability: [
-          ]
-        }
-      };
-    
       // --- GESTION DE TOUS LES MENUS ---
       document.querySelectorAll('.dropdown').forEach(dropdown => {
         const toggle = dropdown.querySelector('a[data-dropdown]');
@@ -775,8 +644,21 @@ allMenus.forEach(({selector, data}) => {
         `;
 
         // Aligne le détail verticalement avec le li cliqué
-        const offsetTop = li.offsetTop - categories.querySelector('ul').offsetTop;
-        detail.style.top = offsetTop + "px";
+        const ul = categories.querySelector('ul');
+        const offsetTop = li.offsetTop - ul.offsetTop;
+        const detailHeight = detail.offsetHeight;
+        const ulHeight = ul.offsetHeight;
+
+        // Position de base
+        let top = offsetTop;
+
+        // Si le détail dépasse en bas, on le remonte un peu
+        if (offsetTop + detailHeight > ulHeight) {
+          top = offsetTop - (offsetTop + detailHeight - ulHeight) - 10; // 10px de marge de confort
+          top = Math.max(top, 0); // On évite de le placer au-dessus du haut du conteneur
+        }
+
+        detail.style.top = top + "px";
         detail.classList.add('show');
 
         items.forEach(l => {
