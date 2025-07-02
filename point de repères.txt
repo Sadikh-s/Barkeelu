@@ -31,8 +31,12 @@
     Continuer la disposition des items
     Rediscuter de la structure du site et entamer les autres pages
 
-Prochaines étapes:
+2 Juillet:
     Enlever "Explore" dans les services uniques
-    Améliorer la postion du "détail" des <ul>
+
+Prochaines étapes:
+    Modifier "_to_delete.html" afin de centrer les textes des submenus
+    Poursuivre en créant des liens html pour les href
+    Améliorer la position du dernier subenu dans "Sectors"
     Générer des fichiers "html" grace au fichier "code.ipynb" et ajouter dans chaque fichier le contenu adapté
     Corriger le menu des langues
