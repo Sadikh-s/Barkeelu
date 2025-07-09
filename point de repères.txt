@@ -1,11 +1,11 @@
-16 Avril : 
+16 Avril: 
     modification onglet expertise
     mission sera une seule page
 
-23 Avril : 
+23 Avril: 
     continuer l'entete de la page index.html et faire la traduction
 
-30 Avril & 7 Mai :
+30 Avril & 7 Mai:
     modifier "abous_us" en "company" comme le modèle d'artefact et y ajouté 
         Ajouter une page Blog
         Missions
@@ -15,16 +15,16 @@
     Discuter avec Pape:
         Différencier les contenus de Services et d'expertise en s'inspirerant d'Alcimed et d'Artefact.
 
-14 Mai & 28 Mai :
+14 Mai & 28 Mai:
     s'inspirer du site d'Alcimed pour structurer expertise. Améliorer le site en s'inspirant d'Artefact aussi.
     Décrire chaque secteur et définir comment les accompagner
     modifier services pour en faire un menu déroulant avec les packages et offres séparées
         Dans chaque package nous allons ajouté le un paragraphe sur le lien entre les offres qui le constituent.
 
-4 Juin :
+4 Juin:
     Front du site, format tablette et téléphone à Améliorer
 
-11 Juin :
+11 Juin:
     taille des items dans les submenus et disposition des items dans services (s'inpirer des submenus pour faire 2 colonnes)
 
 18 Juin & 25 Juin: 
@@ -34,8 +34,12 @@
 2 Juillet:
     Enlever "Explore" dans les services uniques
 
-Prochaines étapes:
+9 Juillet:
     Modifier "_to_delete.html" afin de centrer les textes des submenus
+
+Prochaines étapes:
+    Selectionner les elements du dictionnaire "menu_data" de "code.ipynb" à conserver/supprimer sur les submenus, (faire la meme chose avec le dictionnaire 
+    équivalent dans "index")
     Poursuivre en créant des liens html pour les href
     Améliorer la position du dernier subenu dans "Sectors"
     Générer des fichiers "html" grace au fichier "code.ipynb" et ajouter dans chaque fichier le contenu adapté

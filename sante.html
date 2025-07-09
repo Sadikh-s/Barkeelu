@@ -137,7 +137,8 @@
       box-sizing: border-box;
       overflow-x: hidden;
     }
-    .dropdown-tile {
+
+    a.dropdown-title {
       background: white;
       width: 180px;
       height: 80px;
@@ -146,15 +147,15 @@
       color: #1b254b;
       font-size: 1.1rem;
       padding: 10px 18px;
-      font-weight: 500;
+      font-weight: normal !important;
       box-shadow: 0 2px 8px rgba(54,79,199,0.06);
       border: 1px solid #e5e5e5;
-      text-align: center;
+      text-align: center !important;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-    } 
+    }
 
     /* Responsive TABLETTE */
     @media (max-width: 900px) {
@@ -175,7 +176,7 @@
     }
 
     /* Responsive MOBILE */
-    @media (max-width: 600px) {
+    /* @media (max-width: 600px) {
       .dropdown-menu {
         left: 50%;
         transform: translateX(-50%);
@@ -201,11 +202,11 @@
         gap: 14px;
         max-width: 99vw;
       }
-      .dropdown-tile {
+      .dropdown-title {
         font-size: 0.97rem;
         padding: 12px 8px;
       }
-    }
+    } */
 
     .dropdown-categories {
       position: relative;
@@ -213,24 +214,20 @@
     
 
     .dropdown-detail-align {
-        display: grid;
-        grid-template-columns: 1fr 1fr; /* 2 colonnes égales */
-        gap: 16px 28px;                /* espace entre les cases */
-        /* Le reste de ton style (déjà inclus) */
-        position: absolute;
-        left: 100%;
-        min-width: 340px;
-        max-width: 520px;
-        /* background: #fff; */
-        /* box-shadow: 0 2px 14px rgba(54,79,199,0.08); */
-        border-radius: 14px;
-        /* padding: 28px 32px; */
-        z-index: 12;
-        display: none;
-        }
-        .dropdown-detail-align.show {
-        display: grid;
-        }
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px 28px;                
+  position: absolute;
+  left: 100%;
+  min-width: 340px;
+  max-width: 520px;
+  border-radius: 14px;
+  z-index: 12;
+  display: none;
+}
+.dropdown-detail-align.show {
+  display: grid;
+}
 
    /* ---- FIL D'ARIANE ---- */
 .breadcrumb {
@@ -285,7 +282,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-  </style>
+</style>
 </head>
 <body>
   <nav class="navbar">
@@ -317,7 +314,6 @@
             </div>
             <div class="dropdown-content-wrapper">
               <div class="dropdown-items" id="sectors-content"></div>
-              <!-- <a href="#" class="explore-btn">Explore <i class="fas fa-arrow-right"></i></a> -->
             </div>
           </div>
         </div>
@@ -340,7 +336,6 @@
             </div>
             <div class="dropdown-content-wrapper">
               <div class="dropdown-items" id="expertise-content"></div>
-              <!-- <a href="#" class="explore-btn">Explore <i class="fas fa-arrow-right"></i></a> -->
             </div>
           </div>
         </div>
@@ -422,7 +417,8 @@
     </div>
   </nav>
 
-  <!-- Fil d'Ariane -->
+
+<!-- Fil d'Ariane -->
 <div class="breadcrumb">
     <a href="index.html">Accueil</a> > <a href="secteurs.html">Secteurs</a> > Santé
 </div>
@@ -530,7 +526,7 @@
       function render(cat) {
         const items = data[cat] || [];
         content.innerHTML = items.map(item =>
-          `<div class="dropdown-tile">${item}</div>`
+          `<div class="dropdown-title">${item}</div>`
         ).join('');
       }
       cats.forEach(li => {
@@ -601,7 +597,7 @@
         const data = menuData[menuName] || {};
         const items = data[cat] || [];
         contentElt.innerHTML = items.map(item =>
-          `<div class="dropdown-tile">${item}</div>`
+          `<div class="dropdown-title">${item}</div>`
         ).join('');
       }
     
@@ -658,7 +654,7 @@ document.querySelectorAll('.dropdown-menu.services').forEach(menu => {
 
   // Génére le HTML du détail : chaque élément dans sa box
   detail.innerHTML = itemsList.map(
-    x => `<div class="dropdown-tile">${x}</div>`
+    x => `<div class="dropdown-title">${x}</div>`
   ).join('');
 
   detail.style.top = offsetTop + "px";
@@ -692,19 +688,28 @@ allMenus.forEach(({selector, data}) => {
 
     items.forEach(li => {
       li.addEventListener('click', function(e) {
+
         const cat = li.dataset.category;
         const itemsList = data[cat] || [];
 
         // Génère l'URL pour explore
         const linkHref = `/explore/${cat}`;
 
-        // Génère le HTML du détail
+        // Vérifie si la catégorie ne doit pas afficher "Explore"
+        const excludedCats = ['data_visualization', 'data_analysis', 'data_management', 'market_research', 'web_development', 'predictive_ai'];
+        const showExplore = !excludedCats.includes(cat.trim());
+
+        const exploreLabel = `Explore ${formatExploreLabel(cat)}`;
         detail.innerHTML = `
-          <a class="explore-btn" href="${linkHref}" style="display:block; margin-bottom:20px; font-weight:bold; color:#364fc7; text-align:left;">
-            Explore <i class="fas fa-arrow-right"></i>
-          </a>
+          ${showExplore ? `
+            <a class="explore-btn" href="${linkHref}" style="display:block; margin-bottom:20px; font-weight:bold; color:#364fc7; text-align:left;">
+              ${exploreLabel} <i class="fas fa-arrow-right"></i>
+            </a>` : ''}
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px 28px;">
-            ${itemsList.map(x => `<div class="dropdown-tile">${x}</div>`).join('')}
+            ${itemsList.map(x => {
+              const subUrl = `/explore/${cat}/${x.toLowerCase().replace(/\s+/g, '-').replace(/[()]/g, '')}`;
+              return `<a class="dropdown-title" href="${subUrl}">${x}</a>`;
+            }).join('')}
           </div>
         `;
 
@@ -714,13 +719,11 @@ allMenus.forEach(({selector, data}) => {
         const detailHeight = detail.offsetHeight;
         const ulHeight = ul.offsetHeight;
 
-        // Position de base
         let top = offsetTop;
 
-        // Si le détail dépasse en bas, on le remonte un peu
         if (offsetTop + detailHeight > ulHeight) {
-          top = offsetTop - (offsetTop + detailHeight - ulHeight) - 10; // 10px de marge de confort
-          top = Math.max(top, 0); // On évite de le placer au-dessus du haut du conteneur
+          top = offsetTop - (offsetTop + detailHeight - ulHeight) - 10;
+          top = Math.max(top, 0);
         }
 
         detail.style.top = top + "px";
@@ -784,6 +787,11 @@ item.addEventListener("click", () => {
   langDropdown.style.display = "none";
 });
 });
+
+function formatExploreLabel(str) {
+  return str.replace(/[_\-]+/g, ' ')
+            .replace(/\b\w/g, l => l.toUpperCase());
+}
   </script>
 </body>
 </html>
