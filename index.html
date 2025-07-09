@@ -137,7 +137,8 @@
       box-sizing: border-box;
       overflow-x: hidden;
     }
-    .dropdown-tile {
+
+    a.dropdown-title {
       background: white;
       width: 180px;
       height: 80px;
@@ -146,15 +147,15 @@
       color: #1b254b;
       font-size: 1.1rem;
       padding: 10px 18px;
-      font-weight: 500;
+      font-weight: normal !important;
       box-shadow: 0 2px 8px rgba(54,79,199,0.06);
       border: 1px solid #e5e5e5;
-      text-align: center;
+      text-align: center !important;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-    } 
+    }
 
     /* Responsive TABLETTE */
     @media (max-width: 900px) {
@@ -175,7 +176,7 @@
     }
 
     /* Responsive MOBILE */
-    @media (max-width: 600px) {
+    /* @media (max-width: 600px) {
       .dropdown-menu {
         left: 50%;
         transform: translateX(-50%);
@@ -201,11 +202,11 @@
         gap: 14px;
         max-width: 99vw;
       }
-      .dropdown-tile {
+      .dropdown-title {
         font-size: 0.97rem;
         padding: 12px 8px;
       }
-    }
+    } */
 
     .dropdown-categories {
       position: relative;
@@ -459,7 +460,7 @@
       function render(cat) {
         const items = data[cat] || [];
         content.innerHTML = items.map(item =>
-          `<div class="dropdown-tile">${item}</div>`
+          `<div class="dropdown-title">${item}</div>`
         ).join('');
       }
       cats.forEach(li => {
@@ -530,7 +531,7 @@
         const data = menuData[menuName] || {};
         const items = data[cat] || [];
         contentElt.innerHTML = items.map(item =>
-          `<div class="dropdown-tile">${item}</div>`
+          `<div class="dropdown-title">${item}</div>`
         ).join('');
       }
     
@@ -587,7 +588,7 @@ document.querySelectorAll('.dropdown-menu.services').forEach(menu => {
 
   // Génére le HTML du détail : chaque élément dans sa box
   detail.innerHTML = itemsList.map(
-    x => `<div class="dropdown-tile">${x}</div>`
+    x => `<div class="dropdown-title">${x}</div>`
   ).join('');
 
   detail.style.top = offsetTop + "px";
@@ -621,6 +622,7 @@ allMenus.forEach(({selector, data}) => {
 
     items.forEach(li => {
       li.addEventListener('click', function(e) {
+
         const cat = li.dataset.category;
         const itemsList = data[cat] || [];
 
@@ -631,15 +633,17 @@ allMenus.forEach(({selector, data}) => {
         const excludedCats = ['data_visualization', 'data_analysis', 'data_management', 'market_research', 'web_development', 'predictive_ai'];
         const showExplore = !excludedCats.includes(cat.trim());
 
-
-        // Génère le HTML du détail
+        const exploreLabel = `Explore ${formatExploreLabel(cat)}`;
         detail.innerHTML = `
           ${showExplore ? `
             <a class="explore-btn" href="${linkHref}" style="display:block; margin-bottom:20px; font-weight:bold; color:#364fc7; text-align:left;">
-              Explore <i class="fas fa-arrow-right"></i>
+              ${exploreLabel} <i class="fas fa-arrow-right"></i>
             </a>` : ''}
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px 28px;">
-            ${itemsList.map(x => `<div class="dropdown-tile">${x}</div>`).join('')}
+            ${itemsList.map(x => {
+              const subUrl = `/explore/${cat}/${x.toLowerCase().replace(/\s+/g, '-').replace(/[()]/g, '')}`;
+              return `<a class="dropdown-title" href="${subUrl}">${x}</a>`;
+            }).join('')}
           </div>
         `;
 
@@ -717,6 +721,11 @@ item.addEventListener("click", () => {
   langDropdown.style.display = "none";
 });
 });
+
+function formatExploreLabel(str) {
+  return str.replace(/[_\-]+/g, ' ')
+            .replace(/\b\w/g, l => l.toUpperCase());
+}
   </script>
 </body>
 </html>

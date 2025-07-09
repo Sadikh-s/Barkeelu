@@ -137,7 +137,8 @@
       box-sizing: border-box;
       overflow-x: hidden;
     }
-    .dropdown-title {
+
+    a.dropdown-title {
       background: white;
       width: 180px;
       height: 80px;
@@ -154,7 +155,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-    } 
+    }
 
     /* Responsive TABLETTE */
     @media (max-width: 900px) {
@@ -227,7 +228,61 @@
 .dropdown-detail-align.show {
   display: grid;
 }
-  </style>
+
+   /* ---- FIL D'ARIANE ---- */
+.breadcrumb {
+    padding: 15px 30px;
+    font-size: 14px;
+    color: #666;
+    background-color: #f9f9f9;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.breadcrumb a {
+    text-decoration: none;
+    color: #004080;
+    font-weight: 500;
+    margin: 0 5px;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+.breadcrumb span.separator {
+    color: #999;
+    margin: 0 5px;
+}
+
+/* ---- HEADER PAGE SANTÉ ---- */
+.header-section {
+    background: linear-gradient(285deg, #e7eaf3 0%, #c4d5e9 40%, #6e97c7 100%);
+    height: 30px;
+    color: black;
+    padding: 60px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header-section .title {
+    font-size: 42px;
+    font-weight: bold;
+    line-height: 1.2;
+    max-width: 60%;
+}
+
+.logo-circle {
+    background-color: lightblue;
+    color: black;
+    padding: 20px 28px;
+    border-radius: 50%;
+    font-size: 22px;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+</style>
 </head>
 <body>
   <nav class="navbar">
@@ -361,6 +416,18 @@
       </ul>
     </div>
   </nav>
+
+
+<!-- Fil d'Ariane -->
+<div class="breadcrumb">
+    <a href="index.html">Accueil</a> > <a href="secteurs.html">Secteurs</a> > Santé
+</div>
+
+<!-- Header spécifique à la page Santé -->
+<div class="header-section">
+    <div class="logo-circle">Barkeelu</div>
+    <div class="title">Santé</div>
+</div>
   <script>
     // Data for each menu - Keep your labels!
     const sectorsData = {
