@@ -43,4 +43,4 @@ Prochaines étapes:
     Poursuivre en créant des liens html pour les href
     Améliorer la position du dernier subenu dans "Sectors"
     Générer des fichiers "html" grace au fichier "code.ipynb" et ajouter dans chaque fichier le contenu adapté
-    Corriger le menu des langues
+    Corriger le menu des langues 
